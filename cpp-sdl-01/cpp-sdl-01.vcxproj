@@ -134,7 +134,12 @@
     <None Include="..\..\..\..\..\..\SDL2-devel-2.0.9-VC\SDL2-2.0.9\lib\x86\SDL2.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="img\down.bmp" />
     <Image Include="img\hello-world.bmp" />
+    <Image Include="img\left.bmp" />
+    <Image Include="img\press.bmp" />
+    <Image Include="img\right.bmp" />
+    <Image Include="img\up.bmp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

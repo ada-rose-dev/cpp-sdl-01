@@ -28,5 +28,20 @@
     <Image Include="img\hello-world.bmp">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="img\down.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="img\left.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="img\press.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="img\right.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="img\up.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>
