@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 #include <SDL.h>
 using namespace std;
 
@@ -18,12 +19,12 @@ enum KeySurf {
 SDL_Window* gWin = nullptr;
 SDL_Surface* gScrSurf = nullptr; //Note: Surfaces use the CPU to render. Future tutorials will cover GPU rendering.
 SDL_Surface* gKeySurfs[KS_COUNT];
-SDL_Surface* gMedia = nullptr;
 
 //declare functions
 bool init();
 void close();
 bool loadMedia();
+SDL_Surface* loadSurf(string path);
 
 #pragma region Functions
 bool init() {
@@ -52,10 +53,6 @@ bool init() {
 	return true;
 }
 void close() {
-	//Free surfaces
-	SDL_FreeSurface( gMedia );
-	gMedia = nullptr;
-
 	for (int i = 0; i < KS_COUNT; i++){
 		SDL_FreeSurface(gKeySurfs[i]);
 		gKeySurfs[i] = nullptr;
@@ -69,33 +66,44 @@ void close() {
 	SDL_Quit();
 }
 bool loadMedia() {
-	//Load splash image
-	gMedia = SDL_LoadBMP("./img/hello-world.bmp");
-	if (gMedia == nullptr) {
-		printf("SDL Err: %s\n", SDL_GetError());
-		return false;
-	}
-
 	//Load keypress images
-	gKeySurfs[KS_NONE] = SDL_LoadBMP("./img/press.bmp");
-	gKeySurfs[KS_UP] = SDL_LoadBMP("./img/up.bmp");
-	gKeySurfs[KS_DOWN] = SDL_LoadBMP("./img/down.bmp");
-	gKeySurfs[KS_LEFT] = SDL_LoadBMP("./img/left.bmp");
-	gKeySurfs[KS_RIGHT] = SDL_LoadBMP("./img/right.bmp");
-	//this isn't ideal. will alert the last loaded error. so if there are multiple you won't be able to tell.
-	for (int i = 0; i < KS_COUNT; i++) {
-		if (gKeySurfs[i] == nullptr) {
-			printf("SDL Err: %s\n", SDL_GetError());
-			return false;
-		}
-	}
-
+	gKeySurfs[KS_NONE] = loadSurf("./img/press.bmp");
+	gKeySurfs[KS_UP] = loadSurf("./img/up.bmp");
+	gKeySurfs[KS_DOWN] = loadSurf("./img/down.bmp");
+	gKeySurfs[KS_LEFT] = loadSurf("./img/left.bmp");
+	gKeySurfs[KS_RIGHT] = loadSurf("./img/right.bmp");
 
 	return true;
 }
 
+SDL_Surface* loadSurf(string path) {
+
+	//load
+	SDL_Surface* loaded = SDL_LoadBMP(path.c_str());
+	//handle error
+	if (loaded == nullptr){
+		printf("SDL Err: %s\n Path: %s\n", SDL_GetError(), path.c_str());
+		SDL_FreeSurface(loaded);
+		return nullptr;
+	}
+
+	//optimize - BMPs are 24 bit, so need to be converted to be displayed. here we set the images to the correct format for the main surface.
+	//if we don't convert the format here, it will be converted every time an image is blit onto the screen.
+	SDL_Surface* out = SDL_ConvertSurface(loaded, gScrSurf->format, NULL);
+	//handle error
+	if (out == nullptr)
+		printf("SDL Err: %s\n Path: %s\n", SDL_GetError(), path.c_str());
+	//free loaded, return
+	SDL_FreeSurface(loaded);
+	return out;
+}
+
 void render(SDL_Surface* surf) {
 	SDL_BlitSurface(surf, nullptr, gScrSurf, nullptr);
+	SDL_UpdateWindowSurface(gWin);
+}
+void render(SDL_Surface* surf, SDL_Rect* stretch) {
+	SDL_BlitScaled(surf, NULL, gScrSurf, stretch);
 	SDL_UpdateWindowSurface(gWin);
 }
 /*
@@ -140,18 +148,23 @@ int main(int argc, char* argv[]) {
 					case SDL_KEYDOWN:
 						switch (e.key.keysym.sym)
 						{
-							case SDLK_UP:
-								gCurrentSurf = gKeySurfs[KS_UP];
-								break;
-							case SDLK_DOWN:
-								gCurrentSurf = gKeySurfs[KS_DOWN];
-								break;
-							case SDLK_LEFT:
-								gCurrentSurf = gKeySurfs[KS_LEFT];
-								break;
-							case SDLK_RIGHT:
-								gCurrentSurf = gKeySurfs[KS_RIGHT];
-								break;
+						//esc
+						case SDLK_ESCAPE:
+							run = false;
+							break;
+						//arrow keys
+						case SDLK_UP:
+							gCurrentSurf = gKeySurfs[KS_UP];
+							break;
+						case SDLK_DOWN:
+							gCurrentSurf = gKeySurfs[KS_DOWN];
+							break;
+						case SDLK_LEFT:
+							gCurrentSurf = gKeySurfs[KS_LEFT];
+							break;
+						case SDLK_RIGHT:
+							gCurrentSurf = gKeySurfs[KS_RIGHT];
+							break;
 						}
 						break;
 
@@ -161,8 +174,15 @@ int main(int argc, char* argv[]) {
 					}
 				}
 
+				//Stretch surface to 1/2 surf size (for practice!)
+				SDL_Rect stretch;
+				stretch.x = gCurrentSurf->w / 4.;
+				stretch.y = gCurrentSurf->h / 4.;
+				stretch.w = gCurrentSurf->w / 2.;
+				stretch.h = gCurrentSurf->h / 2.;
+
 				//Render
-				render(gCurrentSurf);
+				render(gCurrentSurf,&stretch);
 			}
 		}
 	}
