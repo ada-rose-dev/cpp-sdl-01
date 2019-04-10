@@ -23,6 +23,9 @@
     <None Include="..\..\..\..\..\..\SDL2-devel-2.0.9-VC\SDL2-2.0.9\lib\x86\SDL2.dll">
       <Filter>Source Files</Filter>
     </None>
+    <None Include="SDL2_image.dll">
+      <Filter>Source Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Image Include="img\hello-world.bmp">
@@ -41,6 +44,9 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="img\up.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="img\baba.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

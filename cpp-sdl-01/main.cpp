@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <SDL.h>
+#include <SDL_image.h>
 using namespace std;
 
 #pragma region Initalize SDL
@@ -46,8 +47,12 @@ bool init() {
 		}
 		else
 		{
-			//Get window surface
-			gScrSurf = SDL_GetWindowSurface(gWin);
+			//Init SDL_image
+			int imgFlags = IMG_INIT_PNG;
+			if (!(IMG_Init(imgFlags) & imgFlags)) //This line ensures we're initializing the flags we want to, and only those flags. Bitwise-AND.
+				printf("SDL_image Err: %s\n", IMG_GetError());
+			else //Set up window surface
+				gScrSurf = SDL_GetWindowSurface(gWin);
 		}
 	}
 	return true;
@@ -73,16 +78,19 @@ bool loadMedia() {
 	gKeySurfs[KS_LEFT] = loadSurf("./img/left.bmp");
 	gKeySurfs[KS_RIGHT] = loadSurf("./img/right.bmp");
 
+
+
 	return true;
 }
 
 SDL_Surface* loadSurf(string path) {
 
 	//load
-	SDL_Surface* loaded = SDL_LoadBMP(path.c_str());
+	SDL_Surface* loaded = IMG_Load(path.c_str());
 	//handle error
 	if (loaded == nullptr){
 		printf("SDL Err: %s\n Path: %s\n", SDL_GetError(), path.c_str());
+		printf("SDL_image Err: %s\n", IMG_GetError());
 		SDL_FreeSurface(loaded);
 		return nullptr;
 	}
@@ -134,7 +142,7 @@ int main(int argc, char* argv[]) {
 			SDL_Event e;
 
 			//Set default surface
-			SDL_Surface* gCurrentSurf = gKeySurfs[KS_NONE];
+			SDL_Surface* gCurrentSurf = loadSurf("./img/baba.png"); //gKeySurfs[KS_NONE];
 
 			while (run) {
 				//SDL_Event handler
@@ -144,7 +152,7 @@ int main(int argc, char* argv[]) {
 					case SDL_QUIT:
 						run = false;
 						break;
-
+						
 					case SDL_KEYDOWN:
 						switch (e.key.keysym.sym)
 						{
@@ -152,6 +160,7 @@ int main(int argc, char* argv[]) {
 						case SDLK_ESCAPE:
 							run = false;
 							break;
+							/**
 						//arrow keys
 						case SDLK_UP:
 							gCurrentSurf = gKeySurfs[KS_UP];
@@ -165,24 +174,28 @@ int main(int argc, char* argv[]) {
 						case SDLK_RIGHT:
 							gCurrentSurf = gKeySurfs[KS_RIGHT];
 							break;
+							/**/
 						}
 						break;
-
+						/**
 					case SDL_KEYUP: //Not the best way to achieve this effect. Use key states (lesson 18)
 						gCurrentSurf = gKeySurfs[KS_NONE];
 						break;
+						/**/
 					}
 				}
 
 				//Stretch surface to 1/2 surf size (for practice!)
+				/*
 				SDL_Rect stretch;
-				stretch.x = gCurrentSurf->w / 4.;
-				stretch.y = gCurrentSurf->h / 4.;
-				stretch.w = gCurrentSurf->w / 2.;
-				stretch.h = gCurrentSurf->h / 2.;
-
+				stretch.x = gCurrentSurf->w / 4.0;
+				stretch.y = gCurrentSurf->h / 4.0;
+				stretch.w = gCurrentSurf->w / 2.0;
+				stretch.h = gCurrentSurf->h / 2.0;
+				*/
 				//Render
-				render(gCurrentSurf,&stretch);
+				render(gCurrentSurf);
+				//render(gCurrentSurf,&stretch);
 			}
 		}
 	}
