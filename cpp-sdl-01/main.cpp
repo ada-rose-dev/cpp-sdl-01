@@ -4,83 +4,121 @@
 #include <SDL_image.h>
 using namespace std;
 
+//Overall, this would be easier with an SDL handler class. This way we can avoid global variables but still have the scope we need.
+
+
 #pragma region Initalize SDL
-
-//enums
-enum KeySurf {
-	KS_NONE,
-	KS_UP,
-	KS_DOWN,
-	KS_LEFT,
-	KS_RIGHT,
-	KS_COUNT
-};
-
 //globals - to be removed later on
 SDL_Window* gWin = nullptr;
-SDL_Surface* gScrSurf = nullptr; //Note: Surfaces use the CPU to render. Future tutorials will cover GPU rendering.
-SDL_Surface* gKeySurfs[KS_COUNT];
+SDL_Texture* gTex = nullptr;
+SDL_Renderer* gRenderer = nullptr;
+SDL_Surface* gScrSurf = nullptr;
 
 //declare functions
 bool init();
 void close();
 bool loadMedia();
+void render();
 SDL_Surface* loadSurf(string path);
+SDL_Texture* loadTex(string path);
+
+bool printErr();
+bool printErr(string message, string path);
+bool printErrIMG();
 
 #pragma region Functions
+
+#pragma region helpers
+bool printErr() {
+	printf("SDL ERR: %s\n", SDL_GetError());
+	return false;
+}
+bool printErr(string message, string path) {
+	printf((message + "\n").c_str());
+	if (path == "")
+		printf("SDL ERR: %s\n", SDL_GetError());
+	else printf("SDL ERR: %s\n PATH: %s\n", SDL_GetError(), path.c_str());
+	return false;
+}
+
+bool printErrIMG() {
+	printf("SDL_Image ERR: %s\n", IMG_GetError());
+	return false;
+}
+
+#pragma endregion
+
+#pragma region loading funcs
 bool init() {
 	//const
 	const int SCR_WIDTH = 640;
 	const int SCR_HEIGHT = 480;
 
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)
-	{
-		printf("SDL Err: %s\n", SDL_GetError());
-		return false;
-	}
-	else {
-		//Populate window
-		gWin = SDL_CreateWindow("SDL Tutorial", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCR_WIDTH, SCR_HEIGHT, SDL_WINDOW_SHOWN);
-		if (gWin == nullptr) {
-			printf("Window could not be created! SDL Err %s\n", SDL_GetError());
-			return false;
-		}
-		else
-		{
-			//Init SDL_image
-			int imgFlags = IMG_INIT_PNG;
-			if (!(IMG_Init(imgFlags) & imgFlags)) //This line ensures we're initializing the flags we want to, and only those flags. Bitwise-AND.
-				printf("SDL_image Err: %s\n", IMG_GetError());
-			else //Set up window surface
-				gScrSurf = SDL_GetWindowSurface(gWin);
-		}
-	}
+		return printErr();
+
+	//Populate window
+	gWin = SDL_CreateWindow("SDL Tutorial", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCR_WIDTH, SCR_HEIGHT, SDL_WINDOW_SHOWN);
+	if (gWin == nullptr)
+		return printErr();
+
+	//Create renderer for texture
+	gRenderer = SDL_CreateRenderer(gWin, -1, SDL_RENDERER_ACCELERATED);
+	if (gRenderer == nullptr)
+		return printErr();
+
+	//Init renderer
+	SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0xFF); //Takes hex values for RGBA.
+
+	//Init SDL_image
+	int imgFlags = IMG_INIT_PNG;
+	if (!(IMG_Init(imgFlags) & imgFlags)) //This line ensures we're initializing the flags we want to, and only those flags. Bitwise-AND.
+		return printErrIMG();
+	return true;
+}
+bool loadMedia() {
+
+	string path = "./img/baba.png";
+	gTex = loadTex(path);
+	if (gTex == nullptr)
+		return printErr("Texture loading failed!",path);
+
 	return true;
 }
 void close() {
-	for (int i = 0; i < KS_COUNT; i++){
-		SDL_FreeSurface(gKeySurfs[i]);
-		gKeySurfs[i] = nullptr;
-	}
+
+	//Destroy texture
+	SDL_DestroyTexture(gTex);
+	gTex = nullptr;
+
+	//Destroy renderer
+	SDL_DestroyRenderer(gRenderer);
+	gRenderer = nullptr;
 
 	//Destroy window
 	SDL_DestroyWindow( gWin );
 	gWin = nullptr;
 
 	//Quit SDL
+	IMG_Quit();
 	SDL_Quit();
 }
-bool loadMedia() {
-	//Load keypress images
-	gKeySurfs[KS_NONE] = loadSurf("./img/press.bmp");
-	gKeySurfs[KS_UP] = loadSurf("./img/up.bmp");
-	gKeySurfs[KS_DOWN] = loadSurf("./img/down.bmp");
-	gKeySurfs[KS_LEFT] = loadSurf("./img/left.bmp");
-	gKeySurfs[KS_RIGHT] = loadSurf("./img/right.bmp");
 
 
+SDL_Texture* loadTex(string path) {
+	SDL_Texture* newTex = nullptr;
 
-	return true;
+	SDL_Surface* loadedSurface = IMG_Load(path.c_str());
+	if (loadedSurface == nullptr)
+		printErrIMG();
+	else {
+		newTex = SDL_CreateTextureFromSurface(gRenderer, loadedSurface);
+		if (newTex == nullptr)
+			printErr("Error creating texture!",path);
+		SDL_FreeSurface(loadedSurface);
+	}
+
+	return newTex;
 }
 
 SDL_Surface* loadSurf(string path) {
@@ -106,25 +144,13 @@ SDL_Surface* loadSurf(string path) {
 	return out;
 }
 
-void render(SDL_Surface* surf) {
-	SDL_BlitSurface(surf, nullptr, gScrSurf, nullptr);
-	SDL_UpdateWindowSurface(gWin);
+void render() {
+	SDL_RenderClear(gRenderer);
+	SDL_RenderCopy(gRenderer, gTex, NULL, NULL);
+	SDL_RenderPresent(gRenderer);
 }
-void render(SDL_Surface* surf, SDL_Rect* stretch) {
-	SDL_BlitScaled(surf, NULL, gScrSurf, stretch);
-	SDL_UpdateWindowSurface(gWin);
-}
-/*
-bool eventHandler(SDL_Event &e) { //Returns run state.
-	while (SDL_PollEvent(&e) != 0) {
-		switch (e.type) {
-		case SDL_QUIT:
-			return false;
-		}
-	}
-	return true;
-}
-*/
+
+#pragma endregion
 #pragma endregion
 #pragma endregion
 
@@ -140,9 +166,6 @@ int main(int argc, char* argv[]) {
 		else {
 			bool run = true;
 			SDL_Event e;
-
-			//Set default surface
-			SDL_Surface* gCurrentSurf = loadSurf("./img/baba.png"); //gKeySurfs[KS_NONE];
 
 			while (run) {
 				//SDL_Event handler
@@ -160,42 +183,12 @@ int main(int argc, char* argv[]) {
 						case SDLK_ESCAPE:
 							run = false;
 							break;
-							/**
-						//arrow keys
-						case SDLK_UP:
-							gCurrentSurf = gKeySurfs[KS_UP];
-							break;
-						case SDLK_DOWN:
-							gCurrentSurf = gKeySurfs[KS_DOWN];
-							break;
-						case SDLK_LEFT:
-							gCurrentSurf = gKeySurfs[KS_LEFT];
-							break;
-						case SDLK_RIGHT:
-							gCurrentSurf = gKeySurfs[KS_RIGHT];
-							break;
-							/**/
 						}
 						break;
-						/**
-					case SDL_KEYUP: //Not the best way to achieve this effect. Use key states (lesson 18)
-						gCurrentSurf = gKeySurfs[KS_NONE];
-						break;
-						/**/
 					}
 				}
-
-				//Stretch surface to 1/2 surf size (for practice!)
-				/*
-				SDL_Rect stretch;
-				stretch.x = gCurrentSurf->w / 4.0;
-				stretch.y = gCurrentSurf->h / 4.0;
-				stretch.w = gCurrentSurf->w / 2.0;
-				stretch.h = gCurrentSurf->h / 2.0;
-				*/
 				//Render
-				render(gCurrentSurf);
-				//render(gCurrentSurf,&stretch);
+				render();
 			}
 		}
 	}
