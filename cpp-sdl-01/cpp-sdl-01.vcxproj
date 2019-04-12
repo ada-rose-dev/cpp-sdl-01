@@ -128,7 +128,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="main-2.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="SDLRunner.cpp" />
+    <ClCompile Include="tut_09.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\..\..\SDL2-devel-2.0.9-VC\SDL2-2.0.9\lib\x86\SDL2.dll" />
@@ -142,6 +145,10 @@
     <Image Include="img\press.bmp" />
     <Image Include="img\right.bmp" />
     <Image Include="img\up.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="SDLRunner.h" />
+    <ClInclude Include="tut_09.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

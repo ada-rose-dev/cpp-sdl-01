@@ -77,12 +77,7 @@ bool init() {
 	return true;
 }
 bool loadMedia() {
-
-	string path = "./img/baba.png";
-	gTex = loadTex(path);
-	if (gTex == nullptr)
-		return printErr("Texture loading failed!",path);
-
+	//Not loading anything this time - just doing geometry!
 	return true;
 }
 void close() {
@@ -104,7 +99,6 @@ void close() {
 	SDL_Quit();
 }
 
-
 SDL_Texture* loadTex(string path) {
 	SDL_Texture* newTex = nullptr;
 
@@ -120,7 +114,6 @@ SDL_Texture* loadTex(string path) {
 
 	return newTex;
 }
-
 SDL_Surface* loadSurf(string path) {
 
 	//load
@@ -145,7 +138,20 @@ SDL_Surface* loadSurf(string path) {
 }
 
 void render() {
+	SDL_SetRenderDrawColor(gRenderer, 0x11, 0x11, 0x11, 0xff);
 	SDL_RenderClear(gRenderer);
+
+	//Draw some geometry. This is where the lesson is!
+	//Note: SDL does coordinates like GML - Y is inverted.
+	SDL_Rect fillRect = { 16,16,32,32 };
+	SDL_Rect outlineRect = { 32,32,48,48 };
+	SDL_SetRenderDrawColor(gRenderer, 0xff, 0x00, 0x00, 0xff);
+	SDL_RenderFillRect(gRenderer, &fillRect);
+	SDL_SetRenderDrawColor(gRenderer, 0x00, 0xff, 0x00, 0xff);
+	SDL_RenderDrawRect(gRenderer, &outlineRect);
+	SDL_SetRenderDrawColor(gRenderer, 0x00, 0x00, 0xff, 0xff);
+	SDL_RenderDrawLine(gRenderer, 128, 64, 64, 128);
+
 	SDL_RenderCopy(gRenderer, gTex, NULL, NULL);
 	SDL_RenderPresent(gRenderer);
 }
@@ -167,7 +173,11 @@ int main(int argc, char* argv[]) {
 			bool run = true;
 			SDL_Event e;
 
+			int tick = 0;
 			while (run) {
+				//clock
+				tick++;
+
 				//SDL_Event handler
 				//run = eventHandler(e);
 				while (SDL_PollEvent(&e) != 0) {
@@ -188,7 +198,18 @@ int main(int argc, char* argv[]) {
 					}
 				}
 				//Render
-				render();
+				//render();
+
+				SDL_SetRenderDrawColor(gRenderer, 0x11, 0x11, 0x11, 0xff);
+				SDL_RenderClear(gRenderer);
+				SDL_SetRenderDrawColor(gRenderer, 0xff, 0x00, 0xff, 0xff);
+				for (double i = 0; i < 32; i++) {
+					int r = 16 + 32*sin(tick/1000.);
+					double rot = tick / 1000.0;
+					SDL_RenderDrawPoint(gRenderer, 128 + r * sin(rot + 6.28 * i / 16.0), 128 + r * cos(rot +6.28 * i / 16.0));
+				}
+
+				SDL_RenderPresent(gRenderer);
 			}
 		}
 	}
