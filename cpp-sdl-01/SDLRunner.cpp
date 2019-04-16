@@ -2,32 +2,12 @@
 
 SDLRunner::SDLRunner()
 {
-	if (SDL_Init(SDL_INIT_VIDEO) < 0)
-		printErr();
-
-	//Populate window
-	Window = SDL_CreateWindow("SDL Tutorial", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, ScrWidth, ScrHeight, SDL_WINDOW_SHOWN);
-	if (Window == nullptr)
-		 printErr();
-
-	//Create renderer for texture
-	Renderer = SDL_CreateRenderer(Window, -1, SDL_RENDERER_ACCELERATED);
-	if (Renderer == nullptr)
-		printErr();
-
-	//Init renderer
-	SDL_SetRenderDrawColor(Renderer, 0xFF, 0xFF, 0xFF, 0xFF); //Takes hex values for RGBA.
-
-	//Init SDL_image
-	int imgFlags = IMG_INIT_PNG;
-	if (!(IMG_Init(imgFlags) & imgFlags)) //This line ensures we're initializing the flags we want to, and only those flags. Bitwise-AND.
-		printErrIMG();
 }
 SDLRunner::~SDLRunner()
 {
 	//Clear texture and surface lists.
-	TexList->clear();
-	SurfList->clear();
+	//TexList->clear();
+	//SurfList->clear();
 
 	//Destroy renderer
 	SDL_DestroyRenderer(Renderer);
@@ -40,6 +20,32 @@ SDLRunner::~SDLRunner()
 	//Quit SDL
 	IMG_Quit();
 	SDL_Quit();
+}
+
+//init
+bool SDLRunner::init() {
+	if (SDL_Init(SDL_INIT_VIDEO) < 0)
+		return printErr();
+
+	//Populate window
+	Window = SDL_CreateWindow("SDL Tutorial", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, ScrWidth, ScrHeight, SDL_WINDOW_SHOWN);
+	if (Window == nullptr)
+		return printErr();
+
+	//Create renderer for texture
+	Renderer = SDL_CreateRenderer(Window, -1, SDL_RENDERER_ACCELERATED);
+	if (Renderer == nullptr)
+		return printErr();
+
+	//Init renderer
+	SDL_SetRenderDrawColor(Renderer, 0xFF, 0xFF, 0xFF, 0xFF); //Takes hex values for RGBA.
+
+	//Init SDL_image
+	int imgFlags = IMG_INIT_PNG;
+	if (!(IMG_Init(imgFlags) & imgFlags)) //This line ensures we're initializing the flags we want to, and only those flags. Bitwise-AND.
+		return printErrIMG();
+
+	return true;
 }
 
 //Loading and Rendering

@@ -1,3 +1,4 @@
+/**
 #include <iostream>
 #include <string>
 #include <SDL.h>
@@ -216,3 +217,5 @@ int main(int argc, char* argv[]) {
 	close();
 	return 0;
 }
+
+/**/
