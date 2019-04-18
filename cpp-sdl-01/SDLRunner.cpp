@@ -48,20 +48,35 @@ bool SDLRunner::init() {
 	return true;
 }
 
-//Loading and Rendering
-SDL_Texture* SDLRunner::loadTex(string path) {
-	SDL_Texture* newTex = nullptr;
+//run
+bool SDLRunner::handleEvents() {
+	bool run = true;
+	//SDL_Event handler
+	while (SDL_PollEvent(&Event) != 0) {
+		switch (Event.type) {
+		//Hit "X" on window
+		case SDL_QUIT:
+			run = false;
+			break;
 
-	SDL_Surface* loadedSurface = IMG_Load(path.c_str());
-	if (loadedSurface == nullptr)
-		printErrIMG();
-	else {
-		newTex = SDL_CreateTextureFromSurface(Renderer, loadedSurface);
-		if (newTex == nullptr)
-			printErr("Error creating texture!",path);
-		SDL_FreeSurface(loadedSurface);
+		case SDL_KEYDOWN:
+			switch (Event.key.keysym.sym)
+			{
+			//esc
+			case SDLK_ESCAPE:
+				run = false;
+				break;
+			}
+			break;
+		}
 	}
+	return run;
+}
 
+//Loading and Unloading
+Texture* SDLRunner::loadTex(string path) {
+	Texture* newTex = new Texture(Renderer);
+	newTex->load(path);
 	return newTex;
 }
 SDL_Surface* SDLRunner::loadSurf(string path) {
@@ -86,7 +101,9 @@ SDL_Surface* SDLRunner::loadSurf(string path) {
 	SDL_FreeSurface(loaded);
 	return out;
 }
+bool SDLRunner::loadTutorial(Tutorial t) {
 
+}
 
 //Helpers - Error
 bool SDLRunner::printErr() {

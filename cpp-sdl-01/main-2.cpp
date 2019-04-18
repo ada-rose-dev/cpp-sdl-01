@@ -14,6 +14,9 @@ int main(int argc, char* argv[]) {
 	while (run) {
 		currentTime = SDL_GetTicks();
 
+		run = Runner->handleEvents();
+
+		/* Render */
 		SDL_SetRenderDrawColor(Renderer, 0xff, 0xff, 0xff, 0xff);
 		SDL_RenderClear(Renderer);
 
@@ -28,7 +31,6 @@ int main(int argc, char* argv[]) {
 			SDL_SetRenderDrawColor(Renderer, 0x00, 0x00, 0x00, 0xff);
 			SDL_RenderDrawRect(Renderer, &rect);
 		}
-
 
 		SDL_RenderPresent(Renderer);
 
