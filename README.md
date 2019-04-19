@@ -30,14 +30,14 @@ Runs the game.
 ### Run Sequence
 The following is listed in execution order, meaning items further down the list have higher execution priority. E.g. local objects will always render _after_ static sprites.
  * tick()
- ** Global Objects
- ** Scene Objects
+ * * Global Objects
+ * * Scene Objects
  * render()
- ** Scene->Render()
- *** Textures
- *** Sprites
- *** Objects
- ** Global GameObj->Render()
+ * * Scene->Render()
+ * * * Textures
+ * * * Sprites
+ * * * Objects
+ * * Global GameObj->Render()
  
 ## _Scene_ 
 Scenes to be rendered. Will be populated with objects, sprites, textures, etc.
