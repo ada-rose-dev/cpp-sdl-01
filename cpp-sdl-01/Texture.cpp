@@ -1,12 +1,16 @@
 #include "Texture.h"
 
 //Constructor, Deconstructor
-Texture::Texture(SDL_Renderer* Renderer)
+Texture::Texture(SDL_Renderer* Renderer, string path, bool ColorKeyEnabled, SDL_Color ColorKey)
 {
 	Tex = nullptr;
+	if (path != "")
+		Load(path);
 	w = 0;
 	h = 0;
 	this->Renderer = Renderer;
+	this->ColorKeyEnabled = ColorKeyEnabled;
+	this->ColorKey = ColorKey;
 }
 
 Texture::~Texture()
@@ -58,5 +62,21 @@ void Texture::Free() {
 void Texture::Render(int x, int y) {
 	SDL_Rect quad = { x, y, w, h };
 	if (SDL_RenderCopy(Renderer, Tex, nullptr, &quad) < 0)
+		printf("SDL ERR: %s", SDL_GetError());
+}
+
+void Texture::RenderPart(int x, int y, SDL_Rect section) {
+	SDL_Rect quad = { x, y, w, h };
+	if (SDL_RenderCopy(Renderer, Tex, &section, &quad) < 0)
+		printf("SDL ERR: %s", SDL_GetError());
+}
+
+void Texture::RenderAsBackground() {
+	if (SDL_RenderCopy(Renderer, Tex, nullptr, nullptr) < 0)
+		printf("SDL ERR: %s", SDL_GetError());
+}
+
+void Texture::RenderPartAsBackground(SDL_Rect section) {
+	if (SDL_RenderCopy(Renderer, Tex, &section, nullptr) < 0)
 		printf("SDL ERR: %s", SDL_GetError());
 }

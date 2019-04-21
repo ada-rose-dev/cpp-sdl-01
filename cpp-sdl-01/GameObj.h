@@ -8,8 +8,10 @@ public:
 	GameObj();
 	~GameObj();
 
-	bool SetSprite(Sprite* s) { SprIndex = s; }
+	void SetSprite(Sprite* s) { SprIndex = s; }
 	Sprite* GetSprite(Sprite* s) { return SprIndex; }
+
+	void Render();
 
 	int x = 0;
 	int y = 0;

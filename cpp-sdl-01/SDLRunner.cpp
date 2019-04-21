@@ -2,6 +2,8 @@
 
 SDLRunner::SDLRunner()
 {
+	ObjList = new list<GameObj*>;
+	SceneList = new list<Scene*>;
 }
 SDLRunner::~SDLRunner()
 {
@@ -28,7 +30,7 @@ bool SDLRunner::init() {
 		return printErr();
 
 	//Populate window
-	Window = SDL_CreateWindow("SDL Tutorial", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, ScrWidth, ScrHeight, SDL_WINDOW_SHOWN);
+	Window = SDL_CreateWindow("SDL Scene", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, ScrWidth, ScrHeight, SDL_WINDOW_SHOWN);
 	if (Window == nullptr)
 		return printErr();
 
@@ -49,7 +51,7 @@ bool SDLRunner::init() {
 }
 
 //run
-bool SDLRunner::handleEvents() {
+bool SDLRunner::HandleEvents() {
 	bool run = true;
 	//SDL_Event handler
 	while (SDL_PollEvent(&Event) != 0) {
@@ -72,13 +74,25 @@ bool SDLRunner::handleEvents() {
 	}
 	return run;
 }
+void SDLRunner::Render() {
+	CurrentScene->render();
+}
+
+//Adding, Removing
+void SDLRunner::AddScene(Scene* s) {
+	SceneList->push_back(s);
+}
+void SDLRunner::FreeScene(Scene* s) {
+	SceneList->remove(s);
+}
 
 //Loading and Unloading
+/** This is really fucky.
 Texture* SDLRunner::loadTex(string path) {
-	Texture* newTex = new Texture(Renderer);
-	newTex->load(path);
+	Texture* newTex = new Texture(Renderer,path);
 	return newTex;
 }
+/**/
 SDL_Surface* SDLRunner::loadSurf(string path) {
 
 	//load
@@ -101,7 +115,7 @@ SDL_Surface* SDLRunner::loadSurf(string path) {
 	SDL_FreeSurface(loaded);
 	return out;
 }
-bool SDLRunner::loadTutorial(Tutorial t) {
+void SDLRunner::loadTutorial(Scene t) {
 
 }
 

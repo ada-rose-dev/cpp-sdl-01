@@ -134,7 +134,7 @@
     <ClCompile Include="SDLRunner.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Texture.cpp" />
-    <ClCompile Include="Tutorial.cpp" />
+    <ClCompile Include="Scene.cpp" />
     <ClCompile Include="tut_10.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -155,7 +155,7 @@
     <ClInclude Include="SDLRunner.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="Texture.h" />
-    <ClInclude Include="Tutorial.h" />
+    <ClInclude Include="Scene.h" />
     <ClInclude Include="tut_10.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

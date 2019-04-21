@@ -6,7 +6,8 @@
 #include "Texture.h"
 #include <list>
 #include <string>
-#include "Tutorial.h"
+#include "GameObj.h"
+#include "Scene.h"
 using namespace std;
 
 class SDLRunner
@@ -19,6 +20,12 @@ private:
 
 	//Members
 	SDL_Event Event;
+	//Lists
+	list<GameObj*>* ObjList; //Contains global (persistent) objects, e.g. GUI, menus, and scene-dependent objects.
+	list<Scene*>* SceneList; //Contains all the scenes in the game.
+	//Currents
+	Scene* CurrentScene;
+
 
 public:
 	//Methods
@@ -29,10 +36,15 @@ public:
 		//loading methods
 	Texture* loadTex(string path);
 	SDL_Surface* loadSurf(string path);
-	bool loadTutorial(Tutorial t);
+	void loadTutorial(Scene t);
+
+		//Adding, removing
+	void AddScene(Scene* s);
+	void FreeScene(Scene* s);
 
 		//run methods
-	bool handleEvents();
+	bool HandleEvents(); //Returns run value.
+	void Render();
 
 	//Members
 	int ScrWidth = 640;

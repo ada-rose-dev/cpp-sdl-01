@@ -10,30 +10,20 @@ int main(int argc, char* argv[]) {
 
 	//Main loop
 	bool run = true;
+	Scene* blankScene = new Scene();
+	GameObj* baba = new GameObj();
+	blankScene->AddObj(baba);
+	baba->SetSprite(new Sprite(Renderer, "./img/baba.png", { 19,18 }));
+	baba->x = 128;
+	baba->y = 128;
+
 	int lastTime = 0, currentTime;
 	while (run) {
 		currentTime = SDL_GetTicks();
 
-		run = Runner->handleEvents();
-
-		/* Render */
-		SDL_SetRenderDrawColor(Renderer, 0xff, 0xff, 0xff, 0xff);
-		SDL_RenderClear(Renderer);
-
-		//Print current time in seconds.
-		if (currentTime > lastTime + 1000) {
-			printf("currentTime = %d\n", currentTime);
-			lastTime = currentTime;
-		}
-
-		if (currentTime % 1000 <= 500) {
-			SDL_Rect rect = { 32, 32, 64, 64 };
-			SDL_SetRenderDrawColor(Renderer, 0x00, 0x00, 0x00, 0xff);
-			SDL_RenderDrawRect(Renderer, &rect);
-		}
-
-		SDL_RenderPresent(Renderer);
-
+		//Load up current room.
+		run = Runner->HandleEvents();
+		Runner->Render();
 	}
 
 	delete Runner;

@@ -1,45 +1,7 @@
 #pragma once
+#ifndef SPRITE_H
+#define SPRITE_H
 #include "Texture.h"
-class Sprite //A Sprite is basically an animated texture.
-{
-private:
-	Texture* TexArr = nullptr; //This should be an adaptave array.
-	int ImgCount = 0; //Size of tex array
-	int Frame = 0; //Index of text array
-	string Directory = ""; //Directory where images are stored. Will be prepended to sprite loading paths.
-	SDL_Renderer* Renderer;
-
-public:
-	/*Constructors, Deconstructor*/
-	Sprite(SDL_Renderer* r); //Loads up an empty sprite.
-	Sprite(SDL_Renderer* r, string path, SpriteGrid grid); //Loads a sprite sheet. Grid determines width, height, x- and y-offset of subimages.
-	Sprite(SDL_Renderer* r, string* paths, SpriteGrid* grids); //Loads multiple sheets. Stores as a single animation. Useful for e.g. trimming textures.
-	~Sprite();
-
-	/*Getters, Setters*/
-		//Frame
-	int GetFrame() { return Frame; }
-	void SetFrame(int f) { Frame = f % ImgCount; } //Should use modulo if passed int is out of range. -- Might be able to circumenvent this function by always taking the modulo during render()
-		//ImgCount
-	int GetImgCount() { return ImgCount; }
-		//Spd
-	int GetSpd(SPEED_TYPE t);
-	void SetSpd(float spd, SPEED_TYPE t);
-		//Texture
-	Texture GetImage(int frame) { return TexArr[frame]; }
-	void LoadFromPath(string path, SpriteGrid grid);
-	void LoadFromPaths(string* paths, SpriteGrid* grids);
-		//Image directory
-	void SetImgDir(string path);
-		//Render
-	void Render(int x, int y); //Renders Sprite to screen. (Using int params for pixel-precise rendering.
-		//Free
-	void Free() { w = 0; h = 0; delete[] TexArr; TexArr = nullptr; ImgCount = 0; Frame = 0; } //Empty stored textures.
-
-	//*Members*/
-	int w = 0;
-	int h = 0;
-};
 
 typedef struct SpriteGrid {
 	int w;
@@ -54,6 +16,84 @@ enum SPEED_TYPE {
 	tpf //Sets speed based on ticks per frame - varies with game FPS
 };
 
+class Sprite //A Sprite is basically an animated texture.
+{
+private:
+	Texture* TexArr = nullptr; //This should be an adaptave array.
+	int ImgCount = 0; //Size of tex array
+	int Frame = 0; //Index of text array
+	string Directory = ""; //Directory where images are stored. Will be prepended to sprite loading paths.
+	SDL_Renderer* Renderer;
+
+	bool ColorKeyEnabled = false;
+	SDL_Color ColorKey = {0,0xff,0xff,0xff};
+
+public:
+	/*Constructors, Deconstructor*/
+	Sprite(SDL_Renderer* r, bool EnableCK = false); //Loads up an empty sprite.
+	Sprite(SDL_Renderer* r, string path, SpriteGrid grid, bool EnableCK = false); //Loads a sprite sheet. Grid determines width, height, x- and y-offset of subimages.
+	Sprite(SDL_Renderer* r, string* paths, SpriteGrid* grids, bool EnableCK = false); //Loads multiple sheets. Stores as a single animation. Useful for e.g. trimming textures.
+	~Sprite();
+
+	/*Getters, Setters*/
+		//Frame
+	int GetFrame() { 
+		return Frame;
+	}
+	void SetFrame(int f) { 
+		Frame = f % ImgCount;
+	}
+		//ImgCount
+	int GetImgCount() {
+		return ImgCount; 
+	}
+		//Spd
+	/** WIP
+	int GetSpd(SPEED_TYPE t);
+	void SetSpd(float spd, SPEED_TYPE t);
+	/**/
+
+		//Texture
+	Texture GetImage(int f=-1) {
+		if (f == -1) f = Frame;
+		return TexArr[f];
+	}
+		//Image directory
+	void SetImgDir(string path) {
+		Directory = path;
+	}
+
+		//Color Key Enabled
+	bool GetColorKeyEnabled() {
+		return ColorKeyEnabled;
+	}
+	void SetColorKeyEnabled(bool b) { ColorKeyEnabled = b; }
+		
+		//Color Key Value
+	void SetColorKey(SDL_Color k) {
+		ColorKey = k;
+	}
+	SDL_Color GetColorKey() {
+		return ColorKey;
+	}
+
+	/*Primary Methods*/
+		//Loading
+	void LoadFromPath(string path, SpriteGrid grid);
+	void LoadFromPaths(string* paths, SpriteGrid* grids);
+
+		//Rendering
+	void Render(int x, int y); //Renders Sprite to screen. (Using int params for pixel-precise rendering.)
+
+		//Freeing
+	void Free() { w = 0; h = 0; delete[] TexArr; TexArr = nullptr; ImgCount = 0; Frame = 0; } //Empty stored textures.
+
+
+	//*Members*/
+	int w = 0;
+	int h = 0;
+};
+
 //Example sprite:
 /*
 int main() {
@@ -65,3 +105,5 @@ int main() {
 	baba->SetSprite(spr);
 	baba->Render();
 }*/
+
+#endif

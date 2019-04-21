@@ -1,7 +1,7 @@
 #pragma once
-#include "Tutorial.h"
+#include "Scene.h"
 class tut_10 :
-	private Tutorial
+	private Scene
 {
 public:
 	tut_10();
