@@ -10,7 +10,8 @@ int main(int argc, char* argv[]) {
 
 	//Main loop
 	bool run = true;
-	Scene* blankScene = new Scene();
+	Scene* blankScene = new Scene(Renderer);
+	Runner->AddScene(blankScene);
 	GameObj* baba = new GameObj();
 	blankScene->AddObj(baba);
 	baba->SetSprite(new Sprite(Renderer, "./img/baba.png", { 19,18 }));

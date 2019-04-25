@@ -4,13 +4,13 @@
 Texture::Texture(SDL_Renderer* Renderer, string path, bool ColorKeyEnabled, SDL_Color ColorKey)
 {
 	Tex = nullptr;
-	if (path != "")
-		Load(path);
-	w = 0;
-	h = 0;
 	this->Renderer = Renderer;
 	this->ColorKeyEnabled = ColorKeyEnabled;
 	this->ColorKey = ColorKey;
+	w = 0;
+	h = 0;
+	if (path != "")
+		Load(path);
 }
 
 Texture::~Texture()

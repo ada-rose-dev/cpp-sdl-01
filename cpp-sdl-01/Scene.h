@@ -11,7 +11,7 @@ class Scene
 {
 public:
 	//Constructor, Destructor
-	Scene();
+	Scene(SDL_Renderer* Renderer);
 	~Scene();
 	void free(); //Removes all componenets from memory.
 
@@ -35,5 +35,8 @@ public:
 	void RmvTex(Texture* tex);
 	void FreeTex(Texture* tex);
 	/**/
+
+private:
+	SDL_Renderer* Renderer = nullptr;
 };
 

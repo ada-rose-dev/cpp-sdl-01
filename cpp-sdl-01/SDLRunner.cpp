@@ -34,13 +34,18 @@ bool SDLRunner::init() {
 	if (Window == nullptr)
 		return printErr();
 
+	//Get screen surface
+	ScreenSurf = SDL_GetWindowSurface(Window);
+	if (ScreenSurf == nullptr)
+		return printErr();
+
 	//Create renderer for texture
 	Renderer = SDL_CreateRenderer(Window, -1, SDL_RENDERER_ACCELERATED);
 	if (Renderer == nullptr)
 		return printErr();
 
 	//Init renderer
-	SDL_SetRenderDrawColor(Renderer, 0xFF, 0xFF, 0xFF, 0xFF); //Takes hex values for RGBA.
+	SDL_SetRenderDrawColor(Renderer, 0x11, 0x11, 0x11, 0x11); //Takes hex values for RGBA.
 
 	//Init SDL_image
 	int imgFlags = IMG_INIT_PNG;
@@ -75,7 +80,21 @@ bool SDLRunner::HandleEvents() {
 	return run;
 }
 void SDLRunner::Render() {
+	//Clear screen.
+	SDL_RenderClear(Renderer);
+
+	//Render scene.
+	if (CurrentScene == nullptr)
+	{
+		CurrentScene = SceneList->back();
+		if (CurrentScene == nullptr)
+			throw exception("FATAL ERROR: CurrentScene not set!");
+	}
 	CurrentScene->render();
+
+	//Update screen.
+	if (SDL_UpdateWindowSurface(Window) < 0)
+		printErr("Error in SDLRunner::Render!","");
 }
 
 //Adding, Removing

@@ -8,7 +8,7 @@ typedef struct SpriteGrid {
 	int h;
 	int x_sep = 0, y_sep = 0;
 	int x_off = 0, y_off = 0;
-	int rows, cols; //Should be determined by the rest. If needed, can be passed.
+	int rows = -1, cols = -1; //Should be determined by the rest. If needed, can be passed.
 } SpriteGrid;
 
 enum SPEED_TYPE {
@@ -19,11 +19,12 @@ enum SPEED_TYPE {
 class Sprite //A Sprite is basically an animated texture.
 {
 private:
-	Texture* TexArr = nullptr; //This should be an adaptave array.
-	int ImgCount = 0; //Size of tex array
+	SDL_Rect* ImgArr = nullptr;
+	int ImgCount = 0; //Size of img array
 	int Frame = 0; //Index of text array
 	string Directory = ""; //Directory where images are stored. Will be prepended to sprite loading paths.
 	SDL_Renderer* Renderer;
+	Texture* Sheet = nullptr;
 
 	bool ColorKeyEnabled = false;
 	SDL_Color ColorKey = {0,0xff,0xff,0xff};
@@ -53,11 +54,6 @@ public:
 	void SetSpd(float spd, SPEED_TYPE t);
 	/**/
 
-		//Texture
-	Texture GetImage(int f=-1) {
-		if (f == -1) f = Frame;
-		return TexArr[f];
-	}
 		//Image directory
 	void SetImgDir(string path) {
 		Directory = path;
@@ -86,7 +82,7 @@ public:
 	void Render(int x, int y); //Renders Sprite to screen. (Using int params for pixel-precise rendering.)
 
 		//Freeing
-	void Free() { w = 0; h = 0; delete[] TexArr; TexArr = nullptr; ImgCount = 0; Frame = 0; } //Empty stored textures.
+	void Free(); //Empty stored textures.
 
 
 	//*Members*/
