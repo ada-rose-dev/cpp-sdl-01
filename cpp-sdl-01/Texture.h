@@ -6,8 +6,15 @@ using namespace std;
 class Texture
 {
 public:
+	//Members
+	int w;
+	int h;
+
+	bool ColorKeyEnabled = false;
+	SDL_Color ColorKey = { 0,0xff,0xff,0xff };
+
 	//Constructor, Deconstructor
-	Texture(SDL_Renderer* Renderer, string path = "", bool ColorKeyEnabled = false, SDL_Color ColorKey = { 0,0xff,0xff,0xff });
+	Texture(SDL_Renderer* Renderer, string path = "", bool ColorKeyEnabled = false, SDL_Color ColorKey = { 0,0xff,0xff,0xff }, int w = 0, int h = 0);
 	~Texture();
 
 	//Loading, Freeing
@@ -16,16 +23,9 @@ public:
 
 	//Rendering
 	void Render(int x, int y);
-	void RenderPart(int x, int y, SDL_Rect section);
+	void RenderPart(int x, int y, SDL_Rect section, int w =-1, int h =-1);
 	void RenderAsBackground(); //Stretches texture to entire screen. Should be called *before* any other render calls.
 	void RenderPartAsBackground(SDL_Rect section);
-
-	//Members
-	int w;
-	int h;
-
-	bool ColorKeyEnabled = false;
-	SDL_Color ColorKey = { 0,0xff,0xff,0xff };
 
 private:
 	SDL_Texture* Tex;

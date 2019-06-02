@@ -1,14 +1,14 @@
 #include "Texture.h"
 
 //Constructor, Deconstructor
-Texture::Texture(SDL_Renderer* Renderer, string path, bool ColorKeyEnabled, SDL_Color ColorKey)
+Texture::Texture(SDL_Renderer* Renderer, string path, bool ColorKeyEnabled, SDL_Color ColorKey, int w, int h)
 {
 	Tex = nullptr;
 	this->Renderer = Renderer;
 	this->ColorKeyEnabled = ColorKeyEnabled;
 	this->ColorKey = ColorKey;
-	w = 0;
-	h = 0;
+	this->w = w;
+	this->h = h;
 	if (path != "")
 		Load(path);
 }
@@ -33,6 +33,7 @@ bool Texture::Load(string path) {
 		printf("SDL_IMG ERR: %s", IMG_GetError());
 	}
 	else {
+		SDL_SetColorKey(loadedSurface, ColorKeyEnabled, SDL_MapRGB(loadedSurface->format, ColorKey.r, ColorKey.g, ColorKey.b));
 		newTex = SDL_CreateTextureFromSurface(Renderer, loadedSurface);
 		if (newTex == nullptr){
 			printf("SDL ERR: %s", SDL_GetError());
@@ -65,10 +66,18 @@ void Texture::Render(int x, int y) {
 		printf("SDL ERR: %s", SDL_GetError());
 }
 
-void Texture::RenderPart(int x, int y, SDL_Rect section) {
+void Texture::RenderPart(int x, int y, SDL_Rect section, int w, int h) {
+	if (w == -1)
+		w = this->w;
+	if (h == -1)
+		h = this->h;
 	SDL_Rect quad = { x, y, w, h };
 	if (SDL_RenderCopy(Renderer, Tex, &section, &quad) < 0)
 		printf("SDL ERR: %s", SDL_GetError());
+	/*
+	else
+		printf("SDL_RenderCopy success at Texture::RenderPart(%i,%i,{%i,%i,%i,%i})", x, y, section.x, section.y, section.w, section.h );
+	*/
 }
 
 void Texture::RenderAsBackground() {

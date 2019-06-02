@@ -145,6 +145,7 @@
     <Image Include="img\down.bmp" />
     <Image Include="img\hello-world.bmp" />
     <Image Include="img\left.bmp" />
+    <Image Include="img\link.png" />
     <Image Include="img\press.bmp" />
     <Image Include="img\right.bmp" />
     <Image Include="img\up.bmp" />

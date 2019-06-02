@@ -67,6 +67,9 @@
     <Image Include="img\baba.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="img\link.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SDLRunner.h">

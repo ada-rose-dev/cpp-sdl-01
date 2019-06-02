@@ -92,9 +92,7 @@ void SDLRunner::Render() {
 	}
 	CurrentScene->render();
 
-	//Update screen.
-	if (SDL_UpdateWindowSurface(Window) < 0)
-		printErr("Error in SDLRunner::Render!","");
+	SDL_RenderPresent(Renderer);
 }
 
 //Adding, Removing

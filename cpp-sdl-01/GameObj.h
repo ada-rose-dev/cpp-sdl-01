@@ -9,7 +9,7 @@ public:
 	~GameObj();
 
 	void SetSprite(Sprite* s) { SprIndex = s; }
-	Sprite* GetSprite(Sprite* s) { return SprIndex; }
+	Sprite* GetSprite() { return SprIndex; }
 
 	void Render();
 

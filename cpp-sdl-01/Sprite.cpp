@@ -44,13 +44,17 @@ void Sprite::LoadFromPath(string path, SpriteGrid grid) {
 	w = grid.w;
 	h = grid.h;
 	//Load texture.
-	Sheet = new Texture(Renderer, path, ColorKeyEnabled, ColorKey);
+	Sheet = new Texture(Renderer, path, ColorKeyEnabled, ColorKey, w, h);
 
 	//Get rows, cols if not passed
 	if (grid.cols == -1)
 		grid.cols = (Sheet->w-grid.x_off) / (grid.w+grid.x_sep);
 	if (grid.rows == -1)
 		grid.rows = (Sheet->h-grid.y_off) / (grid.h+grid.y_sep);
+
+	//Make sure dunkasses don't screw themselves over with a bad call
+	if (grid.cols < 1) grid.cols = 1;
+	if (grid.rows < 1) grid.rows = 1;
 
 	//Iterate over texture.
 	ImgCount = grid.cols * grid.rows;
@@ -64,6 +68,8 @@ void Sprite::LoadFromPath(string path, SpriteGrid grid) {
 		}
 	}
 
+	ImgPath = path;
+	ImgGrid = grid;
 }
 
 void Sprite::LoadFromPaths(string* paths, SpriteGrid* grids) {
@@ -72,5 +78,12 @@ void Sprite::LoadFromPaths(string* paths, SpriteGrid* grids) {
 
 void Sprite::Render(int x, int y) {
 	//Render TexArr[Frame] at pos (x,y)
-	Sheet->RenderPart(x, y, ImgArr[Frame]);
+	Frame+=ImgSpd;
+	if (Frame > ImgCount-1) Frame = 0;
+	Sheet->RenderPart(x, y, ImgArr[(int)(Frame)],w,h);
+}
+
+void Sprite::SetColorKey(SDL_Color k) {
+	ColorKey = k;
+	LoadFromPath(ImgPath, ImgGrid);
 }

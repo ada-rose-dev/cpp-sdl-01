@@ -21,13 +21,17 @@ class Sprite //A Sprite is basically an animated texture.
 private:
 	SDL_Rect* ImgArr = nullptr;
 	int ImgCount = 0; //Size of img array
-	int Frame = 0; //Index of text array
+	float Frame = 0; //Index of text array
+	float ImgSpd = 1./180.; //ImgSpd stored in FPS
 	string Directory = ""; //Directory where images are stored. Will be prepended to sprite loading paths.
 	SDL_Renderer* Renderer;
 	Texture* Sheet = nullptr;
 
 	bool ColorKeyEnabled = false;
-	SDL_Color ColorKey = {0,0xff,0xff,0xff};
+	SDL_Color ColorKey = { 0x00,0xff,0xff,0xff };
+
+	string ImgPath = "";
+	SpriteGrid ImgGrid = {0,0,0,0,0,0,-1,-1};
 
 public:
 	/*Constructors, Deconstructor*/
@@ -49,9 +53,14 @@ public:
 		return ImgCount; 
 	}
 		//Spd
-	/** WIP
-	int GetSpd(SPEED_TYPE t);
-	void SetSpd(float spd, SPEED_TYPE t);
+	/* WIP */
+	int GetSpd(SPEED_TYPE t = fps) {
+		return ImgSpd;
+	}
+	void SetSpd(float spd, SPEED_TYPE t = fps) {
+		ImgSpd = spd;
+	}
+
 	/**/
 
 		//Image directory
@@ -66,9 +75,7 @@ public:
 	void SetColorKeyEnabled(bool b) { ColorKeyEnabled = b; }
 		
 		//Color Key Value
-	void SetColorKey(SDL_Color k) {
-		ColorKey = k;
-	}
+	void SetColorKey(SDL_Color k);
 	SDL_Color GetColorKey() {
 		return ColorKey;
 	}
