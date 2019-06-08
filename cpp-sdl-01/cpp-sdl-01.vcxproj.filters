@@ -18,22 +18,22 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="main-2.cpp">
+    <ClCompile Include="sys\GameObj.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="SDLRunner.cpp">
+    <ClCompile Include="sys\Scene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Texture.cpp">
+    <ClCompile Include="sys\SDLRunner.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Sprite.cpp">
+    <ClCompile Include="sys\Sprite.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GameObj.cpp">
+    <ClCompile Include="sys\Texture.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Scene.cpp">
+    <ClCompile Include="game\objects\goPlayer\goPlayer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -46,46 +46,34 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="img\hello-world.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="img\down.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="img\left.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="img\press.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="img\right.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="img\up.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="img\baba.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="img\link.png">
-      <Filter>Resource Files</Filter>
-    </Image>
+    <ClInclude Include="sys\headers\GameObj.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sys\headers\Scene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sys\headers\SDLRunner.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sys\headers\Sprite.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sys\headers\Texture.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="game\OBJECTS.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="game\objects\goPlayer\goPlayer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="SDLRunner.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Texture.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Sprite.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObj.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
+    <Image Include="game\textures\baba.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="game\textures\link.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

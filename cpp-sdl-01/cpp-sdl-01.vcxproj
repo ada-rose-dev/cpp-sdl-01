@@ -79,7 +79,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\VC-lib\SDL2-devel-2.0.9-VC\SDL2-2.0.9\include;C:\VC-lib\SDL2_image-2.0.4\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\VC-lib\boost_1_68_0;C:\VC-lib\SDL2-devel-2.0.9-VC\SDL2-2.0.9\include;C:\VC-lib\SDL2_image-2.0.4\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -128,34 +128,30 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="main-2.cpp" />
+    <ClCompile Include="game\objects\goPlayer\goPlayer.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="GameObj.cpp" />
-    <ClCompile Include="SDLRunner.cpp" />
-    <ClCompile Include="Sprite.cpp" />
-    <ClCompile Include="Texture.cpp" />
-    <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="sys\GameObj.cpp" />
+    <ClCompile Include="sys\Scene.cpp" />
+    <ClCompile Include="sys\SDLRunner.cpp" />
+    <ClCompile Include="sys\Sprite.cpp" />
+    <ClCompile Include="sys\Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\..\..\SDL2-devel-2.0.9-VC\SDL2-2.0.9\lib\x86\SDL2.dll" />
     <None Include="SDL2_image.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="img\baba.png" />
-    <Image Include="img\down.bmp" />
-    <Image Include="img\hello-world.bmp" />
-    <Image Include="img\left.bmp" />
-    <Image Include="img\link.png" />
-    <Image Include="img\press.bmp" />
-    <Image Include="img\right.bmp" />
-    <Image Include="img\up.bmp" />
+    <ClInclude Include="game\OBJECTS.h" />
+    <ClInclude Include="game\objects\goPlayer\goPlayer.h" />
+    <ClInclude Include="sys\headers\GameObj.h" />
+    <ClInclude Include="sys\headers\Scene.h" />
+    <ClInclude Include="sys\headers\SDLRunner.h" />
+    <ClInclude Include="sys\headers\Sprite.h" />
+    <ClInclude Include="sys\headers\Texture.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GameObj.h" />
-    <ClInclude Include="SDLRunner.h" />
-    <ClInclude Include="Sprite.h" />
-    <ClInclude Include="Texture.h" />
-    <ClInclude Include="Scene.h" />
+    <Image Include="game\textures\baba.png" />
+    <Image Include="game\textures\link.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
