@@ -2,8 +2,8 @@
 #include "SDL.h"
 #include "SDL_image.h"
 #include <string>
-#include "Texture.h"
-#include "GameObj.h"
+#include "sysTexture.h"
+#include "sysGameObj.h"
 #include <list>
 using namespace std;
 
@@ -22,7 +22,7 @@ public:
 
 	//Methods (virtual)
 	void render();
-	void handleEvents();
+	void handleEvents(SDL_Event Event);
 	void loadTex();
 
 	//Adders, Removers

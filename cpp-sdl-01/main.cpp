@@ -1,5 +1,5 @@
 #include <iostream>
-#include "sys/headers/SDLRunner.h"
+#include "sys/headers/sysSDLRunner.h"
 #include "game/GAMEOBJS.h"
 using namespace std;
 
@@ -15,7 +15,7 @@ int main(int argc, char* argv[]) {
 	Runner->AddScene(scnTest);
 	Runner->SetScene(scnTest);
 
-	/* Create Player Object */
+	/*** Create Player Object ***/
 	//Sheet
 	Texture* texLink = new Texture(Renderer, "game/textures/link.png", true);
 	//Sprites
@@ -23,17 +23,18 @@ int main(int argc, char* argv[]) {
 	Sprite* sprLink_N = new Sprite(Renderer, texLink, { 16,16,2,0,36,1,1,1 });
 	Sprite* sprLink_WE = new Sprite(Renderer, texLink, { 16,16,2,0,54,1,1,2 });
 	//Object
-	goPlayer* ObjPlayer = new goPlayer();
+	GameObj* ObjPlayer = new GameObj();
 	ObjPlayer->SetSprite(sprLink_S);
 	//Add to Scene
 	scnTest->AddObj(ObjPlayer);
-	/**/
+	/***************************/
 
 	int lastTime = 0, currentTime;
 	while (run) {
+		//Get time
 		currentTime = SDL_GetTicks();
 
-		//Load up current room.
+		//Load current scene
 		run = Runner->HandleEvents();
 		Runner->Render();
 	}

@@ -1,7 +1,7 @@
 #pragma once
 #ifndef SPRITE_H
 #define SPRITE_H
-#include "Texture.h"
+#include "sysTexture.h"
 
 typedef struct SpriteGrid {
 	int w;						//Sprite width

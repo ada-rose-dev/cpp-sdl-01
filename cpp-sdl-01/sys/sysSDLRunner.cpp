@@ -1,4 +1,4 @@
-#include "./headers/SDLRunner.h"
+#include "./headers/sysSDLRunner.h"
 
 SDLRunner::SDLRunner()
 {
@@ -59,6 +59,7 @@ bool SDLRunner::init() {
 bool SDLRunner::HandleEvents() {
 	bool run = true;
 	//Handle system events.
+
 	while (SDL_PollEvent(&Event) != 0) {
 		switch (Event.type) {
 		//Hit "X" on window
@@ -79,7 +80,7 @@ bool SDLRunner::HandleEvents() {
 
 		//Handle current scene's events (preferably only keystates)
 		if (CurrentScene != nullptr)
-			CurrentScene->handleEvents();
+			CurrentScene->handleEvents(Event);
 	}
 
 

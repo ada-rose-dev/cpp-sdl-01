@@ -1,4 +1,4 @@
-#include "./headers/Sprite.h"
+#include "./headers/sysSprite.h"
 
 
 Sprite::Sprite(SDL_Renderer* r, bool EnableCK){

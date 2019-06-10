@@ -3,11 +3,11 @@
 
 #include "./SDL/SDL.h"
 #include "./SDL/SDL_image.h"
-#include "Texture.h"
+#include "sysTexture.h"
 #include <list>
 #include <string>
-#include "GameObj.h"
-#include "Scene.h"
+#include "sysGameObj.h"
+#include "sysScene.h"
 using namespace std;
 
 class SDLRunner
@@ -20,10 +20,10 @@ private:
 
 	//Members
 	SDL_Event Event;
-	//Lists
+		//Lists
 	list<GameObj*>* ObjList; //Contains global (persistent) objects, e.g. GUI, menus, and scene-dependent objects.
 	list<Scene*>* SceneList; //Contains all the scenes in the game.
-	//Currents
+		//Currents
 	Scene* CurrentScene = nullptr;
 
 

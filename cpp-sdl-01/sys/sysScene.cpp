@@ -1,4 +1,4 @@
-#include "./headers/Scene.h"
+#include "./headers/sysScene.h"
 
 
 
@@ -36,12 +36,10 @@ void Scene::render() {
 		(*it)->Render();
 	}
 }
-void Scene::handleEvents() {
-	
+void Scene::handleEvents(SDL_Event Event) {
 	//Handle every object's events (preferably only keystates)
 	for (list<GameObj*>::iterator it = ObjList->begin(); it != ObjList->end(); it++) {
-		const Uint8* keyState = SDL_GetKeyboardState(NULL);
-		(*it)->HandleEvents(keyState);
+		(*it)->HandleEvents(Event);
 	}
 
 }

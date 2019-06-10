@@ -70,8 +70,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>C:\VC-lib\SDL2-devel-2.0.9-VC\SDL2-2.0.9\include;C:\VC-lib\SDL2_image-2.0.4\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\VC-lib\SDL2-devel-2.0.9-VC\SDL2-2.0.9\lib\x86;C:\VC-lib\SDL2_image-2.0.4\lib\x86;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\VC-lib\SDL2\include;C:\VC-lib\SDL2_image\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\VC-lib\SDL2\lib\x86;C:\VC-lib\SDL2_image\lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -79,7 +79,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\VC-lib\boost_1_68_0;C:\VC-lib\SDL2-devel-2.0.9-VC\SDL2-2.0.9\include;C:\VC-lib\SDL2_image-2.0.4\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\VC-lib\SDL2\include;C:\VC-lib\SDL2_image\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -130,24 +130,24 @@
   <ItemGroup>
     <ClCompile Include="game\objects\goPlayer\goPlayer.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="sys\GameObj.cpp" />
-    <ClCompile Include="sys\Scene.cpp" />
-    <ClCompile Include="sys\SDLRunner.cpp" />
-    <ClCompile Include="sys\Sprite.cpp" />
-    <ClCompile Include="sys\Texture.cpp" />
+    <ClCompile Include="sys\sysGameObj.cpp" />
+    <ClCompile Include="sys\sysScene.cpp" />
+    <ClCompile Include="sys\sysSDLRunner.cpp" />
+    <ClCompile Include="sys\sysSprite.cpp" />
+    <ClCompile Include="sys\sysTexture.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\..\..\SDL2-devel-2.0.9-VC\SDL2-2.0.9\lib\x86\SDL2.dll" />
     <None Include="SDL2_image.dll" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="game\OBJECTS.h" />
+    <ClInclude Include="game\GAMEOBJS.h" />
     <ClInclude Include="game\objects\goPlayer\goPlayer.h" />
-    <ClInclude Include="sys\headers\GameObj.h" />
-    <ClInclude Include="sys\headers\Scene.h" />
-    <ClInclude Include="sys\headers\SDLRunner.h" />
-    <ClInclude Include="sys\headers\Sprite.h" />
-    <ClInclude Include="sys\headers\Texture.h" />
+    <ClInclude Include="sys\headers\sysGameObj.h" />
+    <ClInclude Include="sys\headers\sysScene.h" />
+    <ClInclude Include="sys\headers\sysSDLRunner.h" />
+    <ClInclude Include="sys\headers\sysSprite.h" />
+    <ClInclude Include="sys\headers\sysTexture.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="game\textures\baba.png" />
