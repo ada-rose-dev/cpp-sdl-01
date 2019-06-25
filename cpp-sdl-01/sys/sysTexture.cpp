@@ -90,3 +90,17 @@ void Texture::RenderPartAsBackground(SDL_Rect section) {
 	if (SDL_RenderCopy(Renderer, Tex, &section, nullptr) < 0)
 		printf("SDL ERR: %s", SDL_GetError());
 }
+
+
+
+
+void Texture::RenderTransform(int x, int y, int w, int h, double rotation, SDL_RendererFlip flip, SDL_Point origin) {
+	SDL_Rect quad = { x, y, w, h };
+	if (SDL_RenderCopyEx(Renderer, Tex, nullptr, &quad, rotation, &origin, flip) < 0)
+		printf("SDL ERR: %s", SDL_GetError());
+}
+void Texture::RenderPartTransform(int x, int y, SDL_Rect section, int w, int h, double rotation, SDL_RendererFlip flip, SDL_Point origin) {
+	SDL_Rect quad = { x, y, w, h };
+	if (SDL_RenderCopyEx(Renderer, Tex, &section, &quad, rotation, &origin, flip) < 0)
+		printf("SDL ERR: %s", SDL_GetError());
+}

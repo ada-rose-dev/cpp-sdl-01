@@ -83,6 +83,9 @@ bool SDLRunner::HandleEvents() {
 			CurrentScene->handleEvents(Event);
 	}
 
+	//Step event
+	CurrentScene->step();
+
 
 	return run;
 }

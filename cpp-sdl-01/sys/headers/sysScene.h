@@ -20,10 +20,10 @@ public:
 	list<Sprite*>* SprList;
 	list<GameObj*>* ObjList;
 
-	//Methods (virtual)
-	void render();
+	//Methods
 	void handleEvents(SDL_Event Event);
-	void loadTex();
+	void step();
+	void render();
 
 	//Adders, Removers
 	void AddObj(GameObj* obj);

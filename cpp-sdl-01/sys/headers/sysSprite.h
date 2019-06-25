@@ -1,7 +1,9 @@
 #pragma once
-#ifndef SPRITE_H
-#define SPRITE_H
 #include "sysTexture.h"
+
+  /******************************************/
+ /*** SpriteGrid, SPEED_TYPE, TRANS_TYPE ***/
+/******************************************/
 
 typedef struct SpriteGrid {
 	int w;						//Sprite width
@@ -11,10 +13,23 @@ typedef struct SpriteGrid {
 	int rows = -1, cols = -1;	//Rows/Cols
 } SpriteGrid;
 
+typedef struct TransformVec {
+	double rotation = 0;
+	SDL_RendererFlip flip = SDL_FLIP_NONE;
+	SDL_Point origin = { 0,0 };
+} TransformVec;
+
 enum SPEED_TYPE {
 	fps, //Sets speed based on frames per second - does not vary with game FPS
 	tpf //Sets speed based on ticks per frame - varies with game FPS
 };
+
+  /******************************/
+ /*** Sprite class           ***/
+/******************************/
+
+#ifndef SPRITE_H
+#define SPRITE_H
 
 class Sprite //A Sprite is basically an animated texture.
 {
@@ -34,12 +49,16 @@ private:
 	SpriteGrid ImgGrid = {0,0,0,0,0,0,-1,-1};
 
 public:
-	/*Constructors, Deconstructor*/
+	  /***********************************/
+	 /*** Constructors, Deconstructor ***/
+	/***********************************/
 	Sprite(SDL_Renderer* r, bool EnableCK = false); //Loads up an empty sprite.
 	Sprite(SDL_Renderer* r, Texture* texture, SpriteGrid grid); //Creates a sprite based on a pre-loaded texture sheet.
 	~Sprite();
 
-	/*Getters, Setters*/
+	  /************************/
+	 /*** Getters, Setters ***/
+	/************************/
 		//Frame
 	int GetFrame() { 
 		return Frame;
@@ -59,7 +78,6 @@ public:
 	void SetSpd(float spd, SPEED_TYPE t = fps) {
 		ImgSpd = spd;
 	}
-
 	/**/
 
 		//Image directory
@@ -79,7 +97,9 @@ public:
 		return ColorKey;
 	}
 
-	/*Primary Methods*/
+	  /***********************/
+	 /*** Primary Methods ***/
+	/***********************/
 		//Loading
 	void LoadFromTex(Texture* tex, SpriteGrid grid, bool free = true);
 
@@ -90,10 +110,11 @@ public:
 	void Free(); //Empty stored textures.
 
 
-	//*Members*/
+	//Members
 	int w = 0;
 	int h = 0;
 	int x = -1, y = -1; //For scene sprites.
+	TransformVec* transVec = nullptr;
 };
 
 //Example sprite:

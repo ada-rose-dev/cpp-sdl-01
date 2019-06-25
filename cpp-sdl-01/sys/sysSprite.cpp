@@ -1,6 +1,10 @@
 #include "./headers/sysSprite.h"
 
 
+  /**********************************/
+ /*** Constructor, Deconstructor ***/
+/**********************************/
+
 Sprite::Sprite(SDL_Renderer* r, bool EnableCK){
 	Renderer = r;
 	ColorKeyEnabled = EnableCK;
@@ -33,6 +37,11 @@ void Sprite::Free() {
 	delete Sheet;
 	Sheet = nullptr;
 }
+
+
+  /**********************************/
+ /*** Loading Methods            ***/
+/**********************************/
 
 void Sprite::LoadFromTex(Texture* tex, SpriteGrid grid, bool free) {
 	if (free)
@@ -69,20 +78,25 @@ void Sprite::LoadFromTex(Texture* tex, SpriteGrid grid, bool free) {
 	}
 }
 
+void Sprite::SetColorKey(SDL_Color k) {
+	ColorKey = k;
+	LoadFromTex(Sheet, ImgGrid, false);
+}
+
+
+  /**********************************/
+ /*** Render, Transform Methods  ***/
+/**********************************/
+
 void Sprite::Render(int x, int y) {
 	//Render TexArr[Frame] at pos (x,y)
 	Frame+=ImgSpd;
 	if (Frame >= ImgCount) Frame = 0;
-	Sheet->RenderPart(x, y, *(ImgArr[(int)(Frame)]),w,h);
 
-	/* Render all frames - for debug *
-	for (int i = 0; i < ImgCount; i++) {
-		Sheet->RenderPart(x+(i+1)*(w+2), y, *(ImgArr[i]), w, h);
-	}
-	/**/
-}
+	SDL_Rect* f = ImgArr[(int)(Frame)];
 
-void Sprite::SetColorKey(SDL_Color k) {
-	ColorKey = k;
-	LoadFromTex(Sheet, ImgGrid, false);
+	if (transVec != nullptr)
+		Sheet->RenderPartTransform(x, y, *f, w, h, transVec->rotation, transVec->flip, transVec->origin);
+	else
+		Sheet->RenderPart(x, y, *f, w, h);
 }

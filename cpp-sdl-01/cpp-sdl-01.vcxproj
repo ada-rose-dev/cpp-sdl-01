@@ -70,8 +70,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>C:\VC-lib\SDL2\include;C:\VC-lib\SDL2_image\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\VC-lib\SDL2\lib\x86;C:\VC-lib\SDL2_image\lib\x86;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\VC-lib\SDL2_ttf\include;C:\VC-lib\SDL2\include;C:\VC-lib\SDL2_image\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\VC-lib\SDL2_ttf\lib\x86;C:\VC-lib\SDL2\lib\x86;C:\VC-lib\SDL2_image\lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -79,11 +79,11 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\VC-lib\SDL2\include;C:\VC-lib\SDL2_image\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\VC-lib\SDL2_ttf\include;C:\VC-lib\SDL2\include;C:\VC-lib\SDL2_image\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -130,6 +130,7 @@
   <ItemGroup>
     <ClCompile Include="game\objects\goPlayer\goPlayer.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="sys\sysAnimator.cpp" />
     <ClCompile Include="sys\sysGameObj.cpp" />
     <ClCompile Include="sys\sysScene.cpp" />
     <ClCompile Include="sys\sysSDLRunner.cpp" />
@@ -143,6 +144,7 @@
   <ItemGroup>
     <ClInclude Include="game\GAMEOBJS.h" />
     <ClInclude Include="game\objects\goPlayer\goPlayer.h" />
+    <ClInclude Include="sys\headers\sysAnimator.h" />
     <ClInclude Include="sys\headers\sysGameObj.h" />
     <ClInclude Include="sys\headers\sysScene.h" />
     <ClInclude Include="sys\headers\sysSDLRunner.h" />

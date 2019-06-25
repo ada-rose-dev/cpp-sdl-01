@@ -1,19 +1,13 @@
 #pragma once
 #include "sysSprite.h"
+#include "sysAnimator.h"
+
 class GameObj
 {
 private:
 	//Image members
 	Sprite* SprIndex = nullptr;
-
-	//Event members
-		//Key events
-	bool kUpP, kUp, kUpR;
-	bool kDownP, kDown, kDownR;
-	bool kLeftP, kLeft, kLeftR;
-	bool kRightP, kRight, kRightR;
-		//Movement variables
-	double movespd = 1.;
+	Animator* AnimMachine = nullptr;
 
 public:
 	/* Methods */
@@ -23,15 +17,35 @@ public:
 	void SetSprite(Sprite* s) { SprIndex = s; }
 	Sprite* GetSprite() { return SprIndex; }
 
-	void Render();
 	void HandleEvents(SDL_Event Event); //To be abstracted
+	void Step();
+	void Render();
+
+	/* General Members */
+	double x = 0;
+	double y = 0;
+
+	/* Event Members */
+	bool kUpP, kUp, kUpR;
+	bool kDownP, kDown, kDownR;
+	bool kLeftP, kLeft, kLeftR;
+	bool kRightP, kRight, kRightR;
+
+	/* Animation */
+	void setAnimator(Animator* AnimMachine, bool free = true);
+	void freeAnimator();
+	Animator* getAnimator();
+
+	string animState = "";
+
 
 	/* Behaviors - TO BE REMOVED! */
+		//MOVEMENT
 	void move();
+		//members
+	double movespd = 4.;
+	double xspd = 0.;
+	double yspd = 0.;
 
-
-	/* Members */
-	int x = 0;
-	int y = 0;
 };
 

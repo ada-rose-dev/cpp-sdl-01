@@ -26,6 +26,8 @@ public:
 	//Rendering
 	void Render(int x, int y);
 	void RenderPart(int x, int y, SDL_Rect section, int w =-1, int h =-1);
+	void RenderTransform(int x, int y, int w = -1, int h = -1, double rotation = 0., SDL_RendererFlip flip = SDL_FLIP_NONE, SDL_Point origin = { 0,0 });
+	void RenderPartTransform(int x, int y, SDL_Rect section, int w = -1, int h = -1, double rotation = 0., SDL_RendererFlip flip = SDL_FLIP_NONE, SDL_Point origin = { 0,0 });
 	void RenderAsBackground(); //Stretches texture to entire screen. Should be called *before* any other render calls.
 	void RenderPartAsBackground(SDL_Rect section);
 

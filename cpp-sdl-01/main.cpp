@@ -21,10 +21,20 @@ int main(int argc, char* argv[]) {
 	//Sprites
 	Sprite* sprLink_S = new Sprite(Renderer, texLink, { 16,16,2,0,1,1,1,2 });
 	Sprite* sprLink_N = new Sprite(Renderer, texLink, { 16,16,2,0,36,1,1,1 });
-	Sprite* sprLink_WE = new Sprite(Renderer, texLink, { 16,16,2,0,54,1,1,2 });
+	Sprite* sprLink_E = new Sprite(Renderer, texLink, { 16,16,2,0,54,1,1,2 });
+
+
 	//Object
 	GameObj* ObjPlayer = new GameObj();
-	ObjPlayer->SetSprite(sprLink_S);
+	//Animator
+	Animator* animLink = new Animator();
+	animLink->addPair(new AnimVec({ sprLink_S,"down" }));
+	animLink->addPair(new AnimVec({ sprLink_N,"up" }));
+	animLink->addPair(new AnimVec({ sprLink_E,"right" }));
+	animLink->addPair(new AnimVec({ sprLink_E,"left", new TransformVec({0, SDL_FLIP_HORIZONTAL, {0,0} }) }));
+
+	ObjPlayer->setAnimator(animLink);
+
 	//Add to Scene
 	scnTest->AddObj(ObjPlayer);
 	/***************************/
@@ -34,9 +44,13 @@ int main(int argc, char* argv[]) {
 		//Get time
 		currentTime = SDL_GetTicks();
 
+
 		//Load current scene
+
 		run = Runner->HandleEvents();
+
 		Runner->Render();
+
 	}
 
 	delete Runner;
