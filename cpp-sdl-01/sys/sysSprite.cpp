@@ -15,7 +15,7 @@ Sprite::Sprite(SDL_Renderer* r, Texture* tex, SpriteGrid grid) {
 	Renderer = r;
 	ColorKeyEnabled = tex->ColorKeyEnabled;
 	if (ColorKeyEnabled)
-		ColorKey = tex->ColorKey;
+		ColorKey = tex->GetColorKey();
 	LoadFromTex(tex, grid);
 }
 
@@ -84,13 +84,19 @@ void Sprite::SetColorKey(SDL_Color k) {
 }
 
 
-  /**********************************/
- /*** Render, Transform Methods  ***/
-/**********************************/
+  /***************/
+ /*** Render  ***/
+/***************/
 
 void Sprite::Render(int x, int y) {
 	//Render TexArr[Frame] at pos (x,y)
-	Frame+=ImgSpd;
+	
+	//Calculate deltatime and render appropriately
+	//Note: SDL_GetTicks() returns milliseconds since SDL's initialization.
+	double delta = (SDL_GetTicks() - lastTime)/1000.;
+	lastTime = SDL_GetTicks();
+
+	Frame += delta*ImgSpd;
 	if (Frame >= ImgCount) Frame = 0;
 
 	SDL_Rect* f = ImgArr[(int)(Frame)];

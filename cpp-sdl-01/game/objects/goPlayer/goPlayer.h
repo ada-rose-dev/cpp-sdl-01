@@ -3,7 +3,7 @@
 
 #ifndef GO_PLAYER
 #define GO_PLAYER
-class goPlayer : public GameObj {
+class goPlayer {
 private:
 	//Inhereted
 	Sprite* SprIndex = nullptr;

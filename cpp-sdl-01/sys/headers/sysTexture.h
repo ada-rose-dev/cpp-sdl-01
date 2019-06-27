@@ -23,8 +23,10 @@ public:
 	string path = "";
 	string dir = "";
 
+	//Color Key
 	bool ColorKeyEnabled = false;
-	SDL_Color ColorKey = { 0,0xff,0xff,0xff };
+	void SetColorKey(SDL_Color k);
+	SDL_Color GetColorKey();
 
 	//Constructor, Deconstructor
 	Texture(SDL_Renderer* Renderer, string path = "", bool ColorKeyEnabled = false, SDL_Color ColorKey = { 0,0xff,0xff,0xff }, int w = 0, int h = 0);
@@ -45,6 +47,7 @@ public:
 private:
 	SDL_Texture* Tex;
 	SDL_Renderer* Renderer;
+	SDL_Color ColorKey = { 0,0xff,0xff,0xff };
 
 };
 

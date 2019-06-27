@@ -21,6 +21,17 @@ Texture::~Texture()
 
 
 //Methods
+
+	//Color Key
+void Texture::SetColorKey(SDL_Color k) {
+	this->ColorKey = k;
+	Load(path);
+}
+SDL_Color Texture::GetColorKey() {
+	return ColorKey;
+}
+
+
 	//Load
 bool Texture::Load(string path) {
 	//Remove previous texture.

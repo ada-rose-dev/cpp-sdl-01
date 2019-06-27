@@ -16,6 +16,7 @@
 //#include "sysText.h"  //TODO
 //#include "sysMixer.h" //TODO
 
+template <class T>
 class GameObj
 {
 private:

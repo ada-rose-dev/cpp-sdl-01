@@ -14,12 +14,9 @@
 #pragma once;
 #include "sysSDLRunner.h"
 
-#ifndef GLOBALS
-#define GLOBALS
-  /***************************/
- /*** Runner and Renderer ***/
-/***************************/
+
 extern SDL_Renderer* Renderer;
+
 
 
   /******************************************/
@@ -46,5 +43,3 @@ enum SPEED_TYPE {
 };
 
 /**/
-
-#endif

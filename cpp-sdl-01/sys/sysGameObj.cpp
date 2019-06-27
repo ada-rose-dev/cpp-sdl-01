@@ -1,28 +1,46 @@
+/*** includes ***/
 #include "./headers/sysGameObj.h"
 
-  /************************************************************************************/
- /*** CONSTRUCTOR, DECONSTRUCTOR -- Load in behavior scripts                       ***/
-/************************************************************************************/
+  /**********************************/
+ /*** Constructor, Deconstructor ***/
+/**********************************/
 
-GameObj::GameObj() 
-{
-	//Load in behaviors - TODO
-}
-
-
-GameObj::~GameObj()
+template <class T>
+GameObj<T>::GameObj() 
 {
 }
 
+template <class T>
+GameObj<T>::~GameObj()
+{
+}
 
-  /************************************************************************************/
- /*** EXECUTION EVENTS - HandleEvents(), Step(), Render()                          ***/
-/************************************************************************************/
+
+  /************************/
+ /*** Animator methods ***/
+/************************/
+
+template <class T>
+void GameObj<T>::setAnimator(Animator* AnimMachine, bool free) {
+	if (free)
+		freeAnimator();
+	this->AnimMachine = AnimMachine;
+}
+template <class T>
+Animator* GameObj<T>::getAnimator() {
+	return AnimMachine;
+}
+template <class T>
+void GameObj<T>::freeAnimator() {
+	delete this->AnimMachine;
+}
+
 
   /***************************************************************/
  /*** HandleEvents() -- Handles keyboard and joystick events. ***/
 /***************************************************************/
-void GameObj::HandleEvents(SDL_Event Event) {
+template <class T>
+void GameObj<T>::HandleEvents(SDL_Event Event) {
 	
 	/*** Configure Keys ***/
 	int KeySymbol	= Event.key.keysym.sym;
@@ -35,6 +53,7 @@ void GameObj::HandleEvents(SDL_Event Event) {
 	//Events
 	switch (Event.type) {
 		case (SDL_KEYDOWN): {
+			/* Metaprogramming to abstract this into a loop would be great. */
 			if (keyUp) {
 				if (!kUp)
 					kUpP = true;
@@ -97,11 +116,12 @@ void GameObj::HandleEvents(SDL_Event Event) {
 }
 
   /*******************************************/
- /*** Step() - Calls all behavior scripts ***/
+ /*** Behavior Methods - Step(), Render() ***/
 /*******************************************/
+template <class T>
+void GameObj<T>::Step() {
 
-void GameObj::Step() {
-
+	/*** Load behaviors - TODO ***/
 	move();
 
 	//Reset Release/Press bools
@@ -115,28 +135,17 @@ void GameObj::Step() {
 	kRightP = false;
 }
 
+template <class T>
+void GameObj<T>::Render() {
 
-  /****************************************************************************/
- /*** Render(), Animation methods - Renders sprite and textures to screen. ***/
-/****************************************************************************/
+	//Pre-load methods
+	SprIndex = AnimMachine->getSprite(animState);
+	AnimVec* pair = AnimMachine->getPair(animState);
+	if (pair != nullptr) {
+		SprIndex->transVec = pair->transVec;
+	}
 
-void GameObj::setAnimator(Animator* AnimMachine, bool free) {
-	if (free)
-		freeAnimator();
-	this->AnimMachine = AnimMachine;
-}
-Animator* GameObj::getAnimator() {
-	return AnimMachine;
-}
-void GameObj::freeAnimator() {
-	delete this->AnimMachine;
-}
-
-
-void GameObj::Render() {
-
-	/* This to be set in a behavior! */
-
+	/*** Load behaviors - TODO ***/
 	if (xspd > 0)
 		animState = "right";
 	if (xspd < 0)
@@ -145,27 +154,22 @@ void GameObj::Render() {
 		animState = "down";
 	if (yspd < 0)
 		animState = "up";
-	/**/
-
-	SprIndex = AnimMachine->getSprite(animState);
-	AnimVec* pair = AnimMachine->getPair(animState);
-	if (pair != nullptr) {
-		SprIndex->transVec = pair->transVec;
-	}
 
 	if (SprIndex != nullptr) {
-		SprIndex->SetSpd(1);
+		double spd = 0;
+		if (abs(xspd) != 0 || abs(yspd) != 0) spd = 5;
+		if (spd == 0)
+			SprIndex->SetFrame(0);
+		SprIndex->SetSpd(spd);
 		SprIndex->Render(x, y);
 	}
 }
 
-
-
-  /************************************************************************************/
- /*** BEHAVIORS - To be loaded in from an external file.                           ***/
-/************************************************************************************/
-
-void GameObj::move() {
+  /*********************************************/
+ /*** !!! - TO BE DELETED - BEHAVIORS - !!! ***/
+/*********************************************/
+template <class T>
+void GameObj<T>::move() {
 
 	//Local vars
 	double fric = movespd / 4.;
