@@ -1,6 +1,20 @@
+/*
+*** GameObject.h
+*** Header file for GameObject template.
+*** Includes: sysAnimator.h (< sysSprite < sysTexture < sysCommon < sysSDLRunner)
+***           sysText.h     (< sysFont < sysTexture < sysCommon < sysSDLRunner)
+***           sysMixer.h    (< sysSound < sysCommon < sysSDLRunner)
+*** Included by: sysScene.h -> sysGameRunner.h
+*** Parents: none
+*** Children: All GameObject classes. 
+*** Author: Phoenix Mandala
+*** Last edited: 6-27-19
+*/
+
 #pragma once
-#include "sysSprite.h"
 #include "sysAnimator.h"
+//#include "sysText.h"  //TODO
+//#include "sysMixer.h" //TODO
 
 class GameObj
 {

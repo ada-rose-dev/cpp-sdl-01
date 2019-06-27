@@ -1,3 +1,14 @@
+/*
+*** sysSprite.h
+*** header file for sysSprite class.
+*** Includes: sysTexture.h (< sysCommon < sysSDLRunner)
+*** Included by: sysAnimator.h -> sysGameObj.h -> sysScene.h -> sysGameRunner.h
+*** Parents: none
+*** Children: none
+*** Author: Phoenix Mandala
+*** Last edited: 6-27-19
+*/
+
 #pragma once
 #include "sysTexture.h"
 

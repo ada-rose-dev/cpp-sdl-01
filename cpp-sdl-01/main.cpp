@@ -1,21 +1,31 @@
+/*
+*** main.cpp
+*** Main file. Includes main()
+*** Includes: sysGameRunner (all game dependencies)
+***           GAMEOBJS.h (all game objects)
+*** Included by: none
+*** Parents: none
+*** Children: none
+*** Author: Phoenix Mandala
+*** Last edited: 6-27-19
+*/
+
 #include <iostream>
-#include "sys/headers/sysSDLRunner.h"
 #include "game/GAMEOBJS.h"
+#include "sys/headers/sysGameRunner.h"
 using namespace std;
 
 int main(int argc, char* argv[]) {
-	//Define runner
-	SDLRunner* Runner = new SDLRunner();
-	Runner->init();
-	SDL_Renderer* Renderer = Runner->Renderer;
-
 	//Main loop
  	bool run = true;
+
+	GameRunner* Runner = new GameRunner();
 	Scene* scnTest = new Scene(Renderer);
 	Runner->AddScene(scnTest);
 	Runner->SetScene(scnTest);
 
 	/*** Create Player Object ***/
+	/*** NOTE: This should all be removed and placed in an included file! ***/
 	//Sheet
 	Texture* texLink = new Texture(Renderer, "game/textures/link.png", true);
 	//Sprites

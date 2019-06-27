@@ -2,15 +2,10 @@
 
 SDLRunner::SDLRunner()
 {
-	ObjList = new list<GameObj*>;
-	SceneList = new list<Scene*>;
+	init();
 }
 SDLRunner::~SDLRunner()
 {
-	//Clear texture and surface lists.
-	//TexList->clear();
-	//SurfList->clear();
-
 	//Destroy renderer
 	SDL_DestroyRenderer(Renderer);
 	Renderer = nullptr;
@@ -55,74 +50,7 @@ bool SDLRunner::init() {
 	return true;
 }
 
-//run
-bool SDLRunner::HandleEvents() {
-	bool run = true;
-	//Handle system events.
 
-	while (SDL_PollEvent(&Event) != 0) {
-		switch (Event.type) {
-		//Hit "X" on window
-		case SDL_QUIT:
-			run = false;
-			break;
-		//Exit with ESC
-		case SDL_KEYDOWN:
-			switch (Event.key.keysym.sym)
-			{
-			//esc
-			case SDLK_ESCAPE:
-				run = false;
-				break;
-			}
-			break;
-		}
-
-		//Handle current scene's events (preferably only keystates)
-		if (CurrentScene != nullptr)
-			CurrentScene->handleEvents(Event);
-	}
-
-	//Step event
-	CurrentScene->step();
-
-
-	return run;
-}
-void SDLRunner::Render() {
-	//Clear screen.
-	SDL_RenderClear(Renderer);
-
-	//Render scene.
-	if (CurrentScene == nullptr)
-	{
-		CurrentScene = SceneList->back();
-		if (CurrentScene == nullptr)
-			throw exception("FATAL ERROR: CurrentScene not set!");
-	}
-	CurrentScene->render();
-
-	SDL_RenderPresent(Renderer);
-}
-
-//Adding, Removing
-void SDLRunner::AddScene(Scene* s) {
-	SceneList->push_back(s);
-}
-void SDLRunner::FreeScene(Scene* s) {
-	SceneList->remove(s);
-}
-void SDLRunner::SetScene(Scene* s) {
-	CurrentScene = s;
-}
-
-//Loading and Unloading
-/** This is really fucky.
-Texture* SDLRunner::loadTex(string path) {
-	Texture* newTex = new Texture(Renderer,path);
-	return newTex;
-}
-/**/
 SDL_Surface* SDLRunner::loadSurf(string path) {
 
 	//load

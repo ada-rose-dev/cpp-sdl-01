@@ -1,6 +1,17 @@
+/*
+*** sysAnimator.h
+*** Header file for Animator class.
+*** Includes: sysSprite.h (< sysTexture < sysCommon < sysSDLRunner)
+*** Included by: sysCommon.h -> sysTexture.h -> sysSprite.h -> sysAnimator.h     -> sysGameObj.h -> sysScene.h -> sysGameRunner.h
+***                                         \-> sysText.h   -> sysTextMachine.h -/
+***                                          \-> sysSound.h -> sysMixer.h      -/
+*** Parents: none
+*** Children: none
+*** Author: Phoenix Mandala
+*** Last edited: 6-27-19
+*/
 #pragma once
 #include "sysSprite.h"
-#include <list>
 
 #ifndef SYS_ANIMATOR
 #define SYS_ANIMATOR

@@ -1,7 +1,18 @@
+/*
+*** sysTexture.h
+*** header file for Texture class.
+*** Includes: sysCommon.h (< sysSDLRunner)
+*** Included by: sysSprite.h -> sysAnimator.h     -> sysGameObj.h -> sysScene.h -> sysGameRunner.h
+***              sysText.h   -> sysTextMachine.h -/
+***              sysSound.h  -> sysMixer.h      -/
+*** Parents: none
+*** Children: none
+*** Author: Phoenix Mandala
+*** Last edited: 6-27-19
+*/
+
 #pragma once
-#include "SDL.h"
-#include "SDL_image.h"
-#include <string>
+#include "sysCommon.h"
 using namespace std;
 class Texture
 {

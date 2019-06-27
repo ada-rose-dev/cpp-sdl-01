@@ -1,10 +1,17 @@
+/*
+*** sysScene.h
+*** Header file for Scene class.
+*** Includes: sysGameObject.h (< sysAnimator < sysSprite < sysTexture < sysCommon < sysSDLRunner)
+***                           (< sysMixer < sysSound < sysCommon < sysSDLRunner)
+***                           (< sysText < sysFont < sysTexture < sysCommong < sysSDLRunner)
+*** Included by: sysGameRunner.h
+*** Parents: none
+*** Children: none
+*** Author: Phoenix Mandala
+*** Last edited: 6-27-19
+*/
 #pragma once
-#include "SDL.h"
-#include "SDL_image.h"
-#include <string>
-#include "sysTexture.h"
 #include "sysGameObj.h"
-#include <list>
 using namespace std;
 
 class Scene

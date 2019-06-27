@@ -1,13 +1,23 @@
+/*
+*** sysSDLRunner.h
+*** Implementation file for SDLRunner class.
+*** Includes: none
+*** Included by: sysCommon.h -> sysTexture.h -> sysSprite.h -> sysAnimator.h     -> sysGameObj.h -> sysScene.h -> sysGameRunner.h
+***                                         \-> sysText.h   -> sysTextMachine.h -/
+***                                          \-> sysSound.h -> sysMixer.h      -/  
+*** Parents: none
+*** Children: none
+*** Author: Phoenix Mandala
+*** Last edited: 6-27-19
+*/
+
 #ifndef SDL_RUNNER
 #define SDL_RUNNER
 
 #include "./SDL/SDL.h"
 #include "./SDL/SDL_image.h"
-#include "sysTexture.h"
 #include <list>
 #include <string>
-#include "sysGameObj.h"
-#include "sysScene.h"
 using namespace std;
 
 class SDLRunner
@@ -19,13 +29,8 @@ private:
 	bool printErrIMG();
 
 	//Members
-	SDL_Event Event;
-		//Lists
-	list<GameObj*>* ObjList; //Contains global (persistent) objects, e.g. GUI, menus, and scene-dependent objects.
-	list<Scene*>* SceneList; //Contains all the scenes in the game.
-		//Currents
-	Scene* CurrentScene = nullptr;
-
+	int ScrWidth = 640;
+	int ScrHeight = 480;
 
 public:
 	//Methods
@@ -34,28 +39,11 @@ public:
 	bool init();
 
 		//loading methods
-	Texture* loadTex(string path);
 	SDL_Surface* loadSurf(string path);
-	void loadTutorial(Scene t);
-
-		//Adding, removing
-	void AddScene(Scene* s);
-	void FreeScene(Scene* s);
-	void SetScene(Scene* s);
-
-		//run methods
-	bool HandleEvents(); //Returns run value.
-	void Render();
-
-	//Members
-	int ScrWidth = 640;
-	int ScrHeight = 480;
 
 	SDL_Window* Window = nullptr;
 	SDL_Renderer* Renderer = nullptr;
 	SDL_Surface* ScreenSurf = nullptr;
-	list<Texture>* TexList = {};
-	list<SDL_Surface>* SurfList = {};
 
 };
 
