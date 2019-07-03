@@ -44,7 +44,7 @@ enum SPEED_TYPE {
 
 class Sprite //A Sprite is basically an animated texture.
 {
-private:
+public:
 	SDL_Rect** ImgArr;
 	int ImgCount = 0;		//Size of img array
 	float Frame = 0;		//Index of text array
@@ -61,7 +61,6 @@ private:
 
 	Uint32 lastTime = 0;
 
-public:
 	/*** Constructors, Deconstructor ***/
 	Sprite(SDL_Renderer* r, bool EnableCK = false); //Loads up an empty sprite.
 	Sprite(SDL_Renderer* r, Texture* texture, SpriteGrid grid); //Creates a sprite based on a pre-loaded texture sheet.

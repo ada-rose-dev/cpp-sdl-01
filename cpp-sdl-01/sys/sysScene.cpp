@@ -32,9 +32,7 @@ void Scene::free() {
 
 void Scene::handleEvents(SDL_Event Event) {
 	//Handle every object's events (preferably only keystates)
-	for (list<GameObj*>::iterator it = ObjList->begin(); it != ObjList->end(); it++) {
-		(*it)->HandleEvents(Event);
-	}
+	go::HandleEvents(Event);
 
 }
 

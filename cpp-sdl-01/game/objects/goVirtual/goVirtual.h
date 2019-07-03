@@ -15,11 +15,8 @@
 #ifndef GO_VIRTUAL
 #define GO_VIRTUAL
 
-class goVirtual { //TODO
-public:
-
-private:
-
+template <class T>
+class goVirtual : public GameObj<T> {
 };
 
 #endif

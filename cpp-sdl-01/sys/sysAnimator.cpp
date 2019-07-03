@@ -65,6 +65,18 @@ AnimVec* Animator::getPair(string name) {
 
 
 void Animator::Render(int x, int y) {
-	SprIndex->SetFrame(this->Frame);
+	double delta = (SDL_GetTicks() - lastTime) / 1000.;
+	lastTime = SDL_GetTicks();
+
+	Frame += delta * Framerate;
+	if (Frame >= SprIndex->ImgCount) Frame = 0;
+	SprIndex->SetFrame(Frame);
 	SprIndex->Render(x,y);
+}
+
+
+void Animator::setState(string state) {
+	AnimState = state;
+	SprIndex = getSprite(state);
+	SprIndex->transVec = getPair(state)->transVec;
 }

@@ -23,14 +23,14 @@ typedef struct AnimVec {
 } AnimVec;
 
 class Animator {
-private:
+public:
 	Texture* SpriteSheet;
 	list<AnimVec*> PairList;
 	double Frame = 0.;
 	double Framerate = 10.;
 	Sprite* SprIndex = nullptr;
+	Uint32 lastTime = 0;
 
-public:
 
 	/*** Constructor, Deconstructor ***/
 	Animator();
@@ -43,6 +43,11 @@ public:
 	void freePair(AnimVec* p);
 	void freePair(string name);
 	AnimVec* getPair(string name);
+
+	/*** State ***/
+	string AnimState;
+	void setState(string state);
+	string getState() { return AnimState; }
 
 	/*** Sprite Index ***/
 	Sprite* getSprite(string name);

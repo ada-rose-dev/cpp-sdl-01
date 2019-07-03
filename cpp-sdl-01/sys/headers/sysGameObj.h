@@ -16,51 +16,51 @@
 //#include "sysText.h"  //TODO
 //#include "sysMixer.h" //TODO
 
-template <class T>
-class GameObj
-{
-private:
-	//Image members
-	Sprite* SprIndex = nullptr;
-	Animator* AnimMachine = nullptr;
+namespace go {
 
-public:
-	/* Methods */
-	GameObj();
-	~GameObj();
+	class GameObj
+	{
+	protected:
 
-	void SetSprite(Sprite* s) { SprIndex = s; }
-	Sprite* GetSprite() { return SprIndex; }
+		/* Members *
+		string AnimState;
+		Animator* AnimMachine;
+		int x, y;
+		/**/
 
-	void HandleEvents(SDL_Event Event); //To be abstracted
-	void Step();
-	void Render();
+	public:
+		/* Methods */
+		virtual ~GameObj() = 0;
 
-	/* General Members */
-	double x = 0;
-	double y = 0;
-
-	/* Event Members */
-	bool kUpP, kUp, kUpR;
-	bool kDownP, kDown, kDownR;
-	bool kLeftP, kLeft, kLeftR;
-	bool kRightP, kRight, kRightR;
-
-	/* Animation */
-	void setAnimator(Animator* AnimMachine, bool free = true);
-	void freeAnimator();
-	Animator* getAnimator();
-
-	string animState = "";
+		virtual void Step() = 0;
+		virtual void Render() = 0;
 
 
-	/* Behaviors - TO BE REMOVED! */
-		//MOVEMENT
-	void move();
-		//members
-	double movespd = 4.;
-	double xspd = 0.;
-	double yspd = 0.;
+	};
 
-};
 
+
+	  /**********************************************/
+	 /*** Namespace Specific Methods and Members ***/
+	/**********************************************/
+
+	/*** HANDLE EVENTS ***/
+	//This method handles all keyboard and joypad inputs.
+	//We can keep the input bools within the scope of the namespace because they are namespace-global.
+
+	extern bool kUpP, kUp, kUpR;
+	extern bool kDownP, kDown, kDownR;
+	extern bool kLeftP, kLeft, kLeftR;
+	extern bool kRightP, kRight, kRightR;
+
+	void HandleEvents(SDL_Event Event);
+
+	/*** STEP ***/
+	void preStep();
+	void postStep();
+
+	/*** RENDER ***/
+	void preRender();
+	void postRender();
+
+}

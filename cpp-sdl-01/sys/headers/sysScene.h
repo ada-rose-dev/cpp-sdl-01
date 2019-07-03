@@ -13,6 +13,7 @@
 #pragma once
 #include "sysGameObj.h"
 using namespace std;
+using namespace go;
 
 class Scene
 {
