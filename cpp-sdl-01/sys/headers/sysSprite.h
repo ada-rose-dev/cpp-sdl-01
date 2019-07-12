@@ -11,6 +11,7 @@
 
 #pragma once
 #include "sysTexture.h"
+#include "sysTimer.h"
 
   /******************************************/
  /*** SpriteGrid, SPEED_TYPE, TRANS_TYPE ***/
@@ -47,7 +48,7 @@ class Sprite //A Sprite is basically an animated texture.
 public:
 	SDL_Rect** ImgArr;
 	int ImgCount = 0;		//Size of img array
-	float Frame = 0;		//Index of text array
+	int Frame = 0;			//Index of text array
 	float ImgSpd = 24;       //ImgSpd stored in FPS
 	string Directory = "";	//Directory where images are stored. Will be prepended to sprite loading paths.
 	SDL_Renderer* Renderer;
@@ -59,7 +60,7 @@ public:
 	string ImgPath = "";
 	SpriteGrid ImgGrid = {0,0,0,0,0,0,-1,-1};
 
-	Uint32 lastTime = 0;
+	Timer* timer = nullptr;
 
 	/*** Constructors, Deconstructor ***/
 	Sprite(SDL_Renderer* r, bool EnableCK = false); //Loads up an empty sprite.

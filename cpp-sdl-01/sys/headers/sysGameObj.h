@@ -48,11 +48,33 @@ namespace go {
 	//This method handles all keyboard and joypad inputs.
 	//We can keep the input bools within the scope of the namespace because they are namespace-global.
 
-	extern bool kUpP, kUp, kUpR;
-	extern bool kDownP, kDown, kDownR;
-	extern bool kLeftP, kLeft, kLeftR;
-	extern bool kRightP, kRight, kRightR;
+	extern bool* keyP; //keyPressed
+	extern bool* keyH; //keyHeld
+	extern bool* keyR; //keyReleased
+	extern bool* keyE; //keyEvent
+	extern int* key; //keyCode
 
+	enum KEY {
+		k_up,
+		k_down,
+		k_left,
+		k_right,
+		k_btn1, //A
+		k_btn2, //B
+		k_btn3, //X
+		k_btn4, //Y
+		k_btn5, //L3
+		k_btn6, //R3
+		k_trig_l, //L1
+		k_trig_r, //R1
+		k_bump_l, //L2
+		k_bump_r, //R2
+		k_start,
+		k_select,
+		k_END
+	};
+
+	void ConfigureKeys(int* arr = nullptr);
 	void HandleEvents(SDL_Event Event);
 
 	/*** STEP ***/

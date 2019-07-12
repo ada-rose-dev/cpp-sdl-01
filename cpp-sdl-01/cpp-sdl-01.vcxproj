@@ -23,6 +23,7 @@
     <ProjectGuid>{6249DC57-C70B-47D1-9F94-1987AA0E4EF4}</ProjectGuid>
     <RootNamespace>cppsdl01</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>engine</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -138,10 +139,12 @@
     <ClCompile Include="sys\sysSDLRunner.cpp" />
     <ClCompile Include="sys\sysSprite.cpp" />
     <ClCompile Include="sys\sysTexture.cpp" />
+    <ClCompile Include="sys\sysTimer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\..\..\SDL2-devel-2.0.9-VC\SDL2-2.0.9\lib\x86\SDL2.dll" />
     <None Include="SDL2_image.dll" />
+    <None Include="SDL2_ttf.dll" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="game\GAMEOBJS.h" />
@@ -154,6 +157,7 @@
     <ClInclude Include="sys\headers\sysSDLRunner.h" />
     <ClInclude Include="sys\headers\sysSprite.h" />
     <ClInclude Include="sys\headers\sysTexture.h" />
+    <ClInclude Include="sys\headers\sysTimer.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="game\textures\baba.png" />

@@ -4,83 +4,88 @@
 
 go::GameObj::~GameObj() {}
 
-bool go::kUpP, go::kUp, go::kUpR;
-bool go::kDownP, go::kDown, go::kDownR;
-bool go::kLeftP, go::kLeft, go::kLeftR;
-bool go::kRightP, go::kRight, go::kRightR;
+bool* go::keyR;
+bool* go::keyH;
+bool* go::keyP;
+bool* go::keyE;
+int* go::key;
 
+void go::ConfigureKeys(int* arr) {
+
+	//Reset keys
+	delete[] keyE;
+	delete[] keyR;
+	delete[] keyH;
+	delete[] keyP;
+
+	keyE = new bool[k_END]; //key event
+	keyP = new bool[k_END]; //key pressed
+	keyH = new bool[k_END]; //key held
+	keyR = new bool[k_END]; //key released
+	for (int i = 0; i < k_END; i++) {
+		keyE[i] = false;
+		keyP[i] = false;
+		keyH[i] = false;
+		keyR[i] = false;
+	}
+
+	delete[] key;
+	key  = new int[k_END];
+
+	if (arr == nullptr) { //Default config
+		key[k_up] = SDLK_UP;
+		key[k_down] = SDLK_DOWN;
+		key[k_left] = SDLK_LEFT;
+		key[k_right] = SDLK_RIGHT;
+		key[k_btn1] = SDLK_SPACE;
+		key[k_btn2] = SDLK_z;
+		key[k_btn3] = SDLK_x;
+		key[k_btn4] = SDLK_c;
+		key[k_btn5] = SDLK_LSHIFT;
+		key[k_btn6] = SDLK_RSHIFT;
+		key[k_trig_l] = SDLK_a;
+		key[k_trig_r] = SDLK_s;
+		key[k_bump_l] = SDLK_q;
+		key[k_bump_r] = SDLK_w;
+	}
+	else {
+		for (int i = 0; i < k_END; i++) {
+			key[i] = arr[i];
+		}
+	}
+
+}
 void go::HandleEvents(SDL_Event Event) {
 
 	/*** Configure Keys ***/
 	int KeySymbol = Event.key.keysym.sym;
-	bool keyUp = (KeySymbol == SDLK_UP) || (KeySymbol == SDLK_w);
-	bool keyDown = (KeySymbol == SDLK_DOWN) || (KeySymbol == SDLK_s);
-	bool keyLeft = (KeySymbol == SDLK_LEFT) || (KeySymbol == SDLK_a);
-	bool keyRight = (KeySymbol == SDLK_RIGHT) || (KeySymbol == SDLK_d);
 
+	for (int i = 0; i < k_END; i++) {
+		keyE[i] = ( KeySymbol == key[i] );
+	}
 
 	//Events
+	if (Event.key.repeat == 0)
 	switch (Event.type) {
-	case (SDL_KEYDOWN): {
-		/* Metaprogramming to abstract this into a loop would be great. */
-		if (keyUp) {
-			if (!kUp)
-				kUpP = true;
-			else kUpP = false;
-			kUp = true;
+	case (SDL_KEYDOWN):
+		for (int i = 0; i < k_END; i++) {
+			if (keyE[i]) {
+				keyP[i] = true;
+				keyH[i] = true;
+				keyR[i] = false;
+			}
 		}
-
-		if (keyDown) {
-			if (!kDown)
-				kDownP = true;
-			else kDownP = false;
-			kDown = true;
-		}
-
-		if (keyLeft) {
-			if (!kLeft)
-				kLeftP = true;
-			else kLeftP = false;
-			kLeft = true;
-		}
-
-		if (keyRight) {
-			if (!kRight)
-				kRightP = true;
-			else kRightP = false;
-			kRight = true;
-		}
-
 		break;
-	}
-	case (SDL_KEYUP): {
-
-		if (keyUp) {
-			kUp = false;
-			kUpP = false;
-			kUpR = true;
+	
+	case (SDL_KEYUP):
+		for (int i = 0; i < k_END; i++) {
+			if (keyE[i]) {
+				keyP[i] = false;
+				keyH[i] = false;
+				keyR[i] = true;
+			}
 		}
-
-		if (keyDown) {
-			kDown = false;
-			kDownP = false;
-			kDownR = true;
-		}
-
-		if (keyLeft) {
-			kLeft = false;
-			kLeftP = false;
-			kLeftR = true;
-		}
-
-		if (keyRight) {
-			kRight = false;
-			kRightP = false;
-			kRightR = true;
-		}
-
 		break;
-	}
 	}
 }
 /********************/
@@ -91,11 +96,6 @@ void go::preStep() {
 	//Empty
 }
 void go::postStep() {
-	//Reset key/button release events
-	kUpR = false;
-	kDownR = false;
-	kLeftR = false;
-	kRightR = false;
 }
 /***********/
 
@@ -105,4 +105,9 @@ void go::preRender() {
 
 }
 void go::postRender() {
+	//This is the last step before the game loop repeats. Reset things here.
+	for (int i = 0; i < k_END; i++) {
+		keyP[i] = false;
+		keyR[i] = false;
+	}
 }

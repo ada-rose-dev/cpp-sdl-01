@@ -21,6 +21,8 @@ int main(int argc, char* argv[]) {
 
 	GameRunner* Runner = new GameRunner();
 
+	go::ConfigureKeys();
+
 	  /************************************************************************/
 	 /*** NOTE: This should all be removed and placed in an included file! ***/
 	/************************************************************************/

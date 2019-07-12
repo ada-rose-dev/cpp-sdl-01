@@ -8,6 +8,8 @@
 Sprite::Sprite(SDL_Renderer* r, bool EnableCK){
 	Renderer = r;
 	ColorKeyEnabled = EnableCK;
+
+	timer = new Timer();
 }
 
 
@@ -17,6 +19,8 @@ Sprite::Sprite(SDL_Renderer* r, Texture* tex, SpriteGrid grid) {
 	if (ColorKeyEnabled)
 		ColorKey = tex->GetColorKey();
 	LoadFromTex(tex, grid);
+
+	timer = new Timer();
 }
 
 Sprite::~Sprite()
@@ -36,6 +40,9 @@ void Sprite::Free() {
 
 	delete Sheet;
 	Sheet = nullptr;
+
+	delete timer;
+	timer = nullptr;
 }
 
 
@@ -91,15 +98,15 @@ void Sprite::SetColorKey(SDL_Color k) {
 void Sprite::Render(int x, int y) {
 	//Render TexArr[Frame] at pos (x,y)
 	
-	//Calculate deltatime and render appropriately
-	//Note: SDL_GetTicks() returns milliseconds since SDL's initialization.
-	double delta = (SDL_GetTicks() - lastTime)/1000.;
-	lastTime = SDL_GetTicks();
+	timer->resetTime = ImgSpd*1000;
 
-	Frame += delta*ImgSpd;
+	timer->tick();
+	if (timer->trigger)
+		Frame++;
+
 	if (Frame >= ImgCount) Frame = 0;
 
-	SDL_Rect* f = ImgArr[(int)(Frame)];
+	SDL_Rect* f = ImgArr[Frame];
 
 	if (transVec != nullptr)
 		Sheet->RenderPartTransform(x, y, *f, w, h, transVec->rotation, transVec->flip, transVec->origin);

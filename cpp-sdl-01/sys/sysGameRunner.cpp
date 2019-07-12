@@ -3,9 +3,13 @@
 GameRunner::GameRunner() {
 	ObjList = new list<GameObj*>;
 	SceneList = new list<Scene*>;
+
+	GameStart();
 }
 
 GameRunner::~GameRunner() {
+	GameEnd();
+
 	ObjList->clear();
 	SceneList->clear();
 	delete ObjList;
@@ -18,6 +22,7 @@ bool GameRunner::HandleEvents() {
 	//Handle system events.
 
 	while (SDL_PollEvent(&Event) != 0) {
+		if (Event.key.repeat == 0) //Don't handle key repeats
 		switch (Event.type) {
 			//Hit "X" on window
 		case SDL_QUIT:
@@ -71,4 +76,13 @@ void GameRunner::FreeScene(Scene* s) {
 }
 void GameRunner::SetScene(Scene* s) {
 	CurrentScene = s;
+}
+
+
+//Game Start, End
+void GameRunner::GameStart() {
+}
+
+void GameRunner::GameEnd() {
+
 }

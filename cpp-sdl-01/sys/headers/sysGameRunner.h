@@ -40,6 +40,8 @@ public:
 	bool HandleEvents(); //Returns run value.
 	void Render();
 
+	void GameStart();
+	void GameEnd();
 
 	list<Texture>* TexList = {};
 	list<SDL_Surface>* SurfList = {};

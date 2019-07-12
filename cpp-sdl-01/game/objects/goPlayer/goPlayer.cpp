@@ -13,10 +13,19 @@ goPlayer::goPlayer() {
 
 	//Animator
 	this->AnimMachine = new Animator();
+	
+	//Walk
 	AnimMachine->addPair(new AnimVec({ sprLink_S,"down" }));
 	AnimMachine->addPair(new AnimVec({ sprLink_N,"up" }));
 	AnimMachine->addPair(new AnimVec({ sprLink_E,"right" }));
 	AnimMachine->addPair(new AnimVec({ sprLink_E,"left", new TransformVec({0, SDL_FLIP_HORIZONTAL, {0,0} }) }));
+
+	//Attack
+	AnimMachine->addPair(new AnimVec({ sprLink_atkS,"atkDown" }));
+	AnimMachine->addPair(new AnimVec({ sprLink_atkN,"atkUp" }));
+	AnimMachine->addPair(new AnimVec({ sprLink_atkE,"atkRight" }));
+	AnimMachine->addPair(new AnimVec({ sprLink_atkE,"atkLeft", new TransformVec({0, SDL_FLIP_HORIZONTAL, {0,0}}) }));
+
 
 	this->AnimState = "down";
 }
@@ -30,21 +39,45 @@ goPlayer::~goPlayer() {
 void goPlayer::Step() {
 	preStep();
 
+	attack();
 	move();
 
 	postStep();
 }
 
 void goPlayer::Render() {
-	/*** Load behaviors - TODO ***/
-	if (xspd > 0)
-		AnimState = "right";
-	if (xspd < 0)
-		AnimState = "left";
-	if (yspd > 0)
-		AnimState = "down";
-	if (yspd < 0)
-		AnimState = "up";
+	preRender();
+
+	if (!attacking) {
+
+		if (AnimState == "atkRight")
+			AnimState = "right";
+		if (AnimState == "atkLeft")
+			AnimState = "left";
+		if (AnimState == "atkUp")
+			AnimState = "up";
+		if (AnimState == "atkDown")
+			AnimState = "down";
+
+		if (xspd > 0)
+			AnimState = "right";
+		if (xspd < 0)
+			AnimState = "left";
+		if (yspd > 0)
+			AnimState = "down";
+		if (yspd < 0)
+			AnimState = "up";
+	}
+	else {
+		if (AnimState == "right")
+			AnimState = "atkRight";
+		if (AnimState == "left")
+			AnimState = "atkLeft";
+		if (AnimState == "up")
+			AnimState = "atkUp";
+		if (AnimState == "down")
+			AnimState = "atkDown";
+	}
 
 	AnimMachine->setState(AnimState);
 
@@ -59,6 +92,22 @@ void goPlayer::Render() {
 	}
 	
 	AnimMachine->Render(x,y);
+
+	if (keyP[k_btn1]) {
+		sprLink_atkE->Render(0, 0);
+	}
+	if (keyH[k_btn1]) {
+		sprLink_atkE->Render(16, 0);
+	}
+	if (keyR[k_btn1]) {
+		sprLink_atkE->Render(32, 0);
+	}
+
+	if (attacking) {
+		sprLink_atkS->Render(0, 16);
+	}
+
+	postRender();
 }
 
   /*****************/
@@ -82,13 +131,13 @@ void goPlayer::move() {
 		xspd -= (xspd / xspd) * fric;
 
 	//Press
-	if (kUp)
+	if (keyH[k_up])
 		yspd -= fric;
-	if (kDown)
+	if (keyH[k_down])
 		yspd += fric;
-	if (kLeft)
+	if (keyH[k_left])
 		xspd -= fric;
-	if (kRight)
+	if (keyH[k_right])
 		xspd += fric;
 
 	//Clamp speed
@@ -102,3 +151,15 @@ void goPlayer::move() {
 	y += yspd;
 }
 
+void goPlayer::attack() {
+	if (keyP[k_btn1])
+		attacking = true;
+	if (attacking) {
+       		movespd = 0;
+		atkTimer->tick();
+		if (atkTimer->trigger) {
+			attacking = false;
+			movespd = 4.;
+		}
+	}
+}
