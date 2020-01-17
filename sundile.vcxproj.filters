@@ -1,0 +1,139 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Header Files\sys">
+      <UniqueIdentifier>{fa6a2eef-be23-44a0-843f-435c1cbd1455}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\go">
+      <UniqueIdentifier>{7430fb43-55fc-4677-bcd9-922f04c7f430}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\go">
+      <UniqueIdentifier>{aaefe78f-a10a-477f-aa32-b3db4d85a2ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\sys">
+      <UniqueIdentifier>{378b026b-851b-4468-ad41-62ceadc22a10}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="goPlayer.cpp">
+      <Filter>Source Files\go</Filter>
+    </ClCompile>
+    <ClCompile Include="goText.cpp">
+      <Filter>Source Files\go</Filter>
+    </ClCompile>
+    <ClCompile Include="sysAnimator.cpp">
+      <Filter>Source Files\sys</Filter>
+    </ClCompile>
+    <ClCompile Include="sysCommon.cpp">
+      <Filter>Source Files\sys</Filter>
+    </ClCompile>
+    <ClCompile Include="sysGameObj.cpp">
+      <Filter>Source Files\sys</Filter>
+    </ClCompile>
+    <ClCompile Include="sysGameRunner.cpp">
+      <Filter>Source Files\sys</Filter>
+    </ClCompile>
+    <ClCompile Include="sysScene.cpp">
+      <Filter>Source Files\sys</Filter>
+    </ClCompile>
+    <ClCompile Include="sysSDLRunner.cpp">
+      <Filter>Source Files\sys</Filter>
+    </ClCompile>
+    <ClCompile Include="sysSprite.cpp">
+      <Filter>Source Files\sys</Filter>
+    </ClCompile>
+    <ClCompile Include="sysTexture.cpp">
+      <Filter>Source Files\sys</Filter>
+    </ClCompile>
+    <ClCompile Include="sysTextWrapper.cpp">
+      <Filter>Source Files\sys</Filter>
+    </ClCompile>
+    <ClCompile Include="sysTimer.cpp">
+      <Filter>Source Files\sys</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="game\textures\baba.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="game\textures\link.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="game\fonts\manaspace.regular.ttf">
+      <Filter>Resource Files</Filter>
+    </Font>
+    <Font Include="game\fonts\press-start.k.ttf">
+      <Filter>Resource Files</Filter>
+    </Font>
+    <Font Include="game\fonts\press-start.regular.ttf">
+      <Filter>Resource Files</Filter>
+    </Font>
+    <Font Include="game\fonts\Silver.ttf">
+      <Filter>Resource Files</Filter>
+    </Font>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="sysTimer.h">
+      <Filter>Header Files\sys</Filter>
+    </ClInclude>
+    <ClInclude Include="sysAnimator.h">
+      <Filter>Header Files\sys</Filter>
+    </ClInclude>
+    <ClInclude Include="sysCommon.h">
+      <Filter>Header Files\sys</Filter>
+    </ClInclude>
+    <ClInclude Include="sysFont.h">
+      <Filter>Header Files\sys</Filter>
+    </ClInclude>
+    <ClInclude Include="sysGameObj.h">
+      <Filter>Header Files\sys</Filter>
+    </ClInclude>
+    <ClInclude Include="sysGameRunner.h">
+      <Filter>Header Files\sys</Filter>
+    </ClInclude>
+    <ClInclude Include="sysScene.h">
+      <Filter>Header Files\sys</Filter>
+    </ClInclude>
+    <ClInclude Include="sysSDLRunner.h">
+      <Filter>Header Files\sys</Filter>
+    </ClInclude>
+    <ClInclude Include="sysSprite.h">
+      <Filter>Header Files\sys</Filter>
+    </ClInclude>
+    <ClInclude Include="sysTexture.h">
+      <Filter>Header Files\sys</Filter>
+    </ClInclude>
+    <ClInclude Include="sysTextWrapper.h">
+      <Filter>Header Files\sys</Filter>
+    </ClInclude>
+    <ClInclude Include="goCam.h">
+      <Filter>Header Files\go</Filter>
+    </ClInclude>
+    <ClInclude Include="goPlayer.h">
+      <Filter>Header Files\go</Filter>
+    </ClInclude>
+    <ClInclude Include="goText.h">
+      <Filter>Header Files\go</Filter>
+    </ClInclude>
+    <ClInclude Include="GAMEOBJS.h">
+      <Filter>Header Files\go</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
