@@ -1,4 +1,4 @@
-#include "sysTextWrapper.h"
+#include "../include/sysTextWrapper.h"
 
   /*****************************************/
  /*** Costructor, Deconstructor, Free() ***/
@@ -96,7 +96,7 @@ Font* TextWrapper::GetFont(string name) {
 		if ((*it)->name == name)
 			return (*it);
 	}
-	printf("Font %s was not found!", name);
+	printf("Font %s was not found!", name.c_str());
 	return nullptr;
 }
 Message* TextWrapper::GetMessage(string name) /* TODO - add ASSET_NOT_FOUND_EXCEPTION */ {
@@ -104,7 +104,7 @@ Message* TextWrapper::GetMessage(string name) /* TODO - add ASSET_NOT_FOUND_EXCE
 		if ((*it)->name == name)
 			return (*it);
 	}
-	printf("Message %s was not found!", name);
+	printf("Message %s was not found!", name.c_str());
 	return nullptr;
 }
 //Set

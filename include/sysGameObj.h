@@ -13,7 +13,7 @@
 
 #pragma once
 #include "sysAnimator.h"
-#include "sysTextWrapper.h"
+//#include "sysTextWrapper.h"
 //#include "sysMixer.h" //TODO
 
 namespace go {

@@ -11,8 +11,8 @@
 */
 
 #include <iostream>
-#include "GAMEOBJS.h"
-#include "sysGameRunner.h"
+#include "../include/GAMEOBJS.h"
+#include "../include/sysGameRunner.h"
 #undef main
 using namespace std;
 

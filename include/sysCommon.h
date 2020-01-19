@@ -11,7 +11,7 @@
 *** Last edited: 6-27-19
 */
 
-#pragma once;
+#pragma once
 #include "sysSDLRunner.h"
 
 

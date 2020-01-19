@@ -1,4 +1,4 @@
-#include "sysTimer.h"
+#include "../include/sysTimer.h"
 
 Timer::Timer(Uint32 resetTime, Uint32 currentTime) {
 	this->resetTime = resetTime;

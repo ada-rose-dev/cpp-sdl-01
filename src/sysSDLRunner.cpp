@@ -1,4 +1,4 @@
-#include "sysSDLRunner.h"
+#include "../include/sysSDLRunner.h"
 
 SDLRunner::SDLRunner()
 {
@@ -80,7 +80,7 @@ SDL_Surface* SDLRunner::loadSurf(string path) {
 
 	//optimize - BMPs are 24 bit, so need to be converted to be displayed. here we set the images to the correct format for the main surface.
 	//if we don't convert the format here, it will be converted every time an image is blit onto the screen.
-	SDL_Surface* out = SDL_ConvertSurface(loaded, ScreenSurf->format, NULL);
+	SDL_Surface* out = SDL_ConvertSurface(loaded, ScreenSurf->format, 0);
 	//handle error
 	if (out == nullptr)
 		printf("SDL Err: %s\n Path: %s\n", SDL_GetError(), path.c_str());
@@ -96,7 +96,7 @@ bool SDLRunner::printErr() {
 	return false;
 }
 bool SDLRunner::printErr(string message, string path) {
-	printf((message + "\n").c_str());
+	printf("%s",(message + "\n").c_str());
 	if (path == "")
 		printf("SDL ERR: %s\n", SDL_GetError());
 	else printf("SDL ERR: %s\n PATH: %s\n", SDL_GetError(), path.c_str());

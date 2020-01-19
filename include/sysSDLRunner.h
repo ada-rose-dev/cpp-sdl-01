@@ -24,7 +24,6 @@
 #include <GL/glew.h>
 #include <GL/freeglut.h>
 #include <SDL2/SDL_opengl.h>
-#include <GL/GLU.h>
 
 
 #include <list>

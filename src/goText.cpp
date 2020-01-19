@@ -1,4 +1,4 @@
-#include "goText.h"
+#include "../include/goText.h"
 
 using namespace go;
 

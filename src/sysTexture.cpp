@@ -1,4 +1,4 @@
-#include "sysTexture.h"
+#include "../include/sysTexture.h"
 
 //Constructor, Deconstructor
 Texture::Texture(SDL_Renderer* Renderer, string path, bool ColorKeyEnabled, SDL_Color ColorKey, int w, int h)

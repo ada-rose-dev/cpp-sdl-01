@@ -1,4 +1,4 @@
-#include "sysGameRunner.h"
+#include "../include/sysGameRunner.h"
 
 GameRunner::GameRunner() {
 	ObjList = new list<GameObj*>;

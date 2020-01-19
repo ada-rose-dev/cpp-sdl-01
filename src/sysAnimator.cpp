@@ -1,4 +1,4 @@
-#include "sysAnimator.h"
+#include "../include/sysAnimator.h"
 
 Animator::Animator() {
 

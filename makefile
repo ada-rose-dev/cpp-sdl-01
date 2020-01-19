@@ -5,33 +5,51 @@
 ###################
 ###  VARIABLES  ###
 ###################
-CC = clang				# compiler
-FLAGS = ${CF} ${LF} 	# all flags
-CF = -g -Wall			# compiler flags
-LF = -lSDL2 -lSDL2_image -lSDL2_ttf -lSDL2_mixer	#linker flags
+CC = clang++				# compiler
+FLAGS = ${WF} ${CF} ${LF} 	# all flags
+CF = -g # compiler flags
+WF = -Wno-comments -Wno-unused-command-line-argument #warning flags
+LF =  -lSDL2 -lSDL2_image -lSDL2_ttf -lSDL2_mixer -lglut -lGLEW -lGLU -lGL -lm	#linker flags
 
 ###################
 ###  FUNCTIONS  ###
 ###################
 ###  all  ###
-all: System Objects Main
-	${CC} *.o ${FLAGS} -o ENGINE
+all: system GOs main
+	@${CC} *.o ${FLAGS} -o ./bin/sundile
 
 ###  compile main  ###
-Main: ./src/main.cpp
+main: ./src/main.cpp
+	@echo =====================
 	@echo Compiling main...
-	${CC} main.cpp -c ${FLAGS}
+	@echo =====================
+	@${CC} ./src/main.cpp -c ${FLAGS}
+	@echo =====================
+	@echo Main compiled!
+	@echo =====================
 
 ###  compile system ###
-System: ./src/sys*.cpp ./include/sys*.h
+sys: system
+system: $(wildcard ./src/sys%.cpp ./include/sys%.h)
+	@echo =====================
 	@echo Compiling system...
-	${CC} ./src/sys*.cpp -c ${FLAGS}
+	@echo =====================
+	@${CC} $(wildcard ./src/sys*.cpp) -c ${FLAGS}
+	@echo =====================
+	@echo System compiled!
+	@echo =====================
 
 ###  compile game objects  ###
-Objects: ./src/go*.cpp ./src/go*.h
-	@echo Compiling game objects...
-	${CC} ./src/go*.cpp -c ${FLAGS}
+GOs: gos
+gos: $(wildcard ./src/go%.cpp ./include/go%.h)
+	@echo =====================
+	@echo Compiling GO\'s...
+	@echo =====================
+	@${CC} $(wildcard ./src/go*.cpp) -c ${FLAGS}
+	@echo =====================
+	@echo GO\'s compiled!
+	@echo =====================
 
 ###  clean  ###
 clean:
-	rm ENGINE.exe
+	@rm ./bin/*

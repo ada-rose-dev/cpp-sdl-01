@@ -4,7 +4,7 @@
 *** Last modified: 6-25-19
 */
 
-#include "sysCommon.h"
+#include "../include/sysCommon.h"
 
   /***************************/
  /*** Runner and Renderer ***/

@@ -1,14 +1,14 @@
 #pragma once
 #include "sysTexture.h"
 
-typedef struct Font {
+struct Font {
 	string name;
 	TTF_Font* index;
 	string path;
 	double ptsize;
 };
 
-typedef struct Message {
+struct Message {
 	string name;
 	string message;
 	Font* font;

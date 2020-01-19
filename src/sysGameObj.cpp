@@ -1,5 +1,5 @@
 /*** includes ***/
-#include "sysGameObj.h"
+#include "../include/sysGameObj.h"
 
 
 go::GameObj::~GameObj() {}

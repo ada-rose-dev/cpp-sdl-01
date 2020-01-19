@@ -1,6 +1,5 @@
 /*** Includes ***/
-#pragma once
-#include "goPlayer.h"
+#include "../include/goPlayer.h"
 using namespace go;
 
   /**********************************/

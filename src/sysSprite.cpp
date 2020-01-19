@@ -1,4 +1,4 @@
-#include "sysSprite.h"
+#include "../include/sysSprite.h"
 
 
   /**********************************/
