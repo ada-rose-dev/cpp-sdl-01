@@ -1,2 +1,3 @@
-#!/bin/bash
-exec ./bin/sundile
+#! /bin/bash
+#TODO: Add options
+gdb -tui ./bin/sundile

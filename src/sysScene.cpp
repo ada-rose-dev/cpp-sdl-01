@@ -45,7 +45,6 @@ void Scene::step() {
 
 void Scene::render() {
 
-	//Will need to find a way to save texture and sprite coordinates.
 	for (list<Texture*>::iterator it = TexList->begin(); it != TexList->end(); it++) {
 		(*it)->Render((*it)->x, (*it)->y); //Render global texture at it's internal coordinates.
 	}
@@ -64,7 +63,7 @@ void Scene::render() {
  /* ADDERS/REMOVERS - Objects, Sprites, Textures, Sounds                             */
 /************************************************************************************/
 
-/* Objects */
+//Objects 
 
 void Scene::AddObj(GameObj* obj) {
 	ObjList->push_back(obj);
@@ -77,7 +76,7 @@ void Scene::FreeObj(GameObj* obj) {
 	delete obj;
 }
 
-/* Sprites */
+//Sprites 
 
 void Scene::AddSpr(Sprite* spr, int x, int y) {
 	spr->x = x;
@@ -92,7 +91,7 @@ void Scene::FreeSpr(Sprite* spr) {
 	delete spr;
 }
 
-/* Textures */
+//Textures 
 
 void Scene::AddTex(Texture* tex, int x, int y) {
 	tex->x = x;

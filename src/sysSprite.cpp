@@ -35,14 +35,21 @@ void Sprite::Free() {
 	ImgCount = 0;
 	Frame = 0;
 
-	delete[] ImgArr;
-	ImgArr = nullptr;
+	if (ImgArr != nullptr) {
+		delete[] ImgArr;
+		ImgArr = nullptr;
+	}
 
-	delete Sheet;
-	Sheet = nullptr;
+	if (Sheet != nullptr)
+	{
+		delete Sheet;
+		Sheet = nullptr;
+	}
 
-	delete timer;
-	timer = nullptr;
+	if (timer != nullptr) {
+		delete timer;
+		timer = nullptr;
+	}
 }
 
 

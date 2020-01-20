@@ -28,10 +28,10 @@ bool SDLRunner::init() {
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)
 		return printErr();
 
-	//Populate window
+/*	//Populate window
 	Window = SDL_CreateWindow("SDL Scene", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, ScrWidth, ScrHeight, SDL_WINDOW_SHOWN);
 	if (Window == nullptr)
-		return printErr();
+		return printErr();*/
 
 	//Initialize OpenGL
 	createGLContext(3,1);

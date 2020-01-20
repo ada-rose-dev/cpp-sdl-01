@@ -31,8 +31,8 @@ int main(int argc, char* argv[]) {
 	Runner->SetScene(scnTest);
 
 	//Player
-	scnTest->AddObj(new goPlayer);
-	scnTest->AddObj(new goText);
+	//scnTest->AddObj(new goPlayer);
+	//scnTest->AddObj(new goText);
 
 	 /************************************************************************/
 	/************************************************************************/
